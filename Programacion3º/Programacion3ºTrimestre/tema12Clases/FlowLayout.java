@@ -5,8 +5,11 @@ public class FlowLayout extends JFrame {
 	
 	public FlowLayout(){
 
-		//Lo coloco con el import, ya que arriba me lo toma como obsoleto.
-		setLayout(new java.awt.FlowLayout(0, 10, 20));
+		//Coloco el FlowLayout con la ruta completa, ya que arriba me lo toma como obsoleto.
+		// 1ºParametro: <<< 0 = Izquierda 	 1 = centro 	 2 = derecha >>>>
+		// 2ºParametro: Distancia horizontal entre elementos
+		// 3ºParametro: Distancia vertical entre elementos
+		setLayout(new java.awt.FlowLayout(0, 10, 15));
 		
 	    add(new JLabel("Su nombre"));
 	    add(new JTextField(16));
