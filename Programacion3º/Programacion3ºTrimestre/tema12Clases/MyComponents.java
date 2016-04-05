@@ -64,6 +64,8 @@ public class MyComponents extends JFrame{
 	abajo.setBorder(new TitledBorder("Two Labels"));
 	
 	
+	//-----<<>>FRAME<<>>------
+	
 	//Añado los dos JPanel al frame
 	add(arriba,BorderLayout.NORTH);
 	add(abajo,BorderLayout.CENTER);
