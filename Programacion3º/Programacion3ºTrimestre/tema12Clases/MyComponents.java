@@ -30,9 +30,12 @@ public class MyComponents extends JFrame{
 	//Doy color al boton center
 	center.setForeground(new Color(0,255,0));
 	
-	//Creo el border con color y titulo
+	//Creo el border con color y titulo al Jpanel y al boton left
 	arriba.setBorder(new LineBorder(new Color(102,255,255), 3));
 	arriba.setBorder(new TitledBorder("Three Buttons"));
+
+	//cursor cruz al JPanel "arriba"
+	arriba.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
 	
 	
 	
@@ -67,7 +70,7 @@ public class MyComponents extends JFrame{
 	
 	//-----<<>>FRAME<<>>------
 	
-	//AÃ±ado los dos JPanel al frame
+	//Añado los dos JPanel al frame
 	add(arriba,BorderLayout.NORTH);
 	add(abajo,BorderLayout.CENTER);
 	}
