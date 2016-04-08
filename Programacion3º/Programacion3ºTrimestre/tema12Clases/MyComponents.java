@@ -70,7 +70,7 @@ public class MyComponents extends JFrame{
 	
 	//-----<<>>FRAME<<>>------
 	
-	//Añado los dos JPanel al frame
+	//Aï¿½ado los dos JPanel al frame
 	add(arriba,BorderLayout.NORTH);
 	add(abajo,BorderLayout.CENTER);
 	}
