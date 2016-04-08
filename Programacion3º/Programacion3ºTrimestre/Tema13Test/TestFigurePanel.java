@@ -8,7 +8,12 @@ import Tema13Clases.FigurePanel;
 public class TestFigurePanel extends JFrame {
 
 	public TestFigurePanel() {
-		add(new FigurePanel(1));
+		FigurePanel panel1 = new FigurePanel(FigurePanel.OVAL,true);
+		System.out.println(panel1.getType());
+		//panel1.setType(2);
+		//panel1.setFilled(false);
+		add(panel1);
+		
 	}
 		
 		
