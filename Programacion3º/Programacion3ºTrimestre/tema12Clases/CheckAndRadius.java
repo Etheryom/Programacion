@@ -25,14 +25,14 @@ public class CheckAndRadius extends JFrame {
 		checkConIconos.setBorder(new TitledBorder("What countries do you like?"));
 		
 		//creamos los checks con iconos
-		JCheckBox españa = new JCheckBox("España",new ImageIcon("images/icoespaña.png"),false);
+		JCheckBox espania = new JCheckBox("Espania",new ImageIcon("images/icoespania.png"),false);
 		JCheckBox francia = new JCheckBox("Francia",new ImageIcon("images/icofrancia.gif"),false);
 		JCheckBox canada = new JCheckBox("Canada",new ImageIcon("images/icocanada.png"),false);
 		JCheckBox eeuu = new JCheckBox("EEUU",new ImageIcon("images/icoeeuu.gif"),false);
 		
 		
-		//añadimos los checks
-		checkConIconos.add(españa);
+		//aniadimos los checks
+		checkConIconos.add(espania);
 		checkConIconos.add(francia);
 		checkConIconos.add(canada);
 		checkConIconos.add(eeuu);
@@ -48,13 +48,13 @@ public class CheckAndRadius extends JFrame {
 		checkSinIconos.setBorder(new TitledBorder("What countries do you like?"));
 		
 		//creamos los checks con iconos
-		JCheckBox España = new JCheckBox("España",false);
+		JCheckBox Espania = new JCheckBox("Espania",false);
 		JCheckBox Francia = new JCheckBox("Francia",false);
 		JCheckBox Canada = new JCheckBox("Canada",false);
 		JCheckBox EEUU = new JCheckBox("EEUU",false);
 		
-		//añadimos los checks
-		checkSinIconos.add(España);
+		//insertamos los checks
+		checkSinIconos.add(Espania);
 		checkSinIconos.add(Francia);
 		checkSinIconos.add(Canada);
 		checkSinIconos.add(EEUU);
@@ -69,7 +69,7 @@ public class CheckAndRadius extends JFrame {
 		radius.setBorder(new TitledBorder("Select a Country"));
 		
 		//Creamos los radio button
-		JRadioButton esp = new JRadioButton("España",new ImageIcon("images/icoespaña.png"),false);
+		JRadioButton esp = new JRadioButton("Espania",new ImageIcon("images/icoespania.png"),false);
 		JRadioButton fr = new JRadioButton("Francia",new ImageIcon("images/icofrancia.gif"),false);
 		JRadioButton ca = new JRadioButton("Canada",new ImageIcon("images/icocanada.png"),false);
 		JRadioButton eu = new JRadioButton("EEUU",new ImageIcon("images/icoeeuu.gif"),false);
@@ -97,7 +97,7 @@ public class CheckAndRadius extends JFrame {
 		radiusSinIcono.setBorder(new TitledBorder("Select a Country"));
 		
 		//Creamos los radio button
-		JRadioButton ESP = new JRadioButton("España",false);
+		JRadioButton ESP = new JRadioButton("Espania",false);
 		JRadioButton FR = new JRadioButton("Francia",false);
 		JRadioButton CA = new JRadioButton("Canada",false);
 		JRadioButton EU = new JRadioButton("EEUU",false);

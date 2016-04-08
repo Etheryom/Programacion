@@ -16,20 +16,20 @@ public class MyJButton extends JFrame{
 		
 		//JBUTTONs con los parametros (texto e instancia de imagen)
 		
-		JButton españa = new JButton("ESPAÑA",new ImageIcon("images/flagspain.png"));
+		JButton espania = new JButton("ESPAÑA",new ImageIcon("images/flagspain.png"));
 		JButton francia = new JButton("FRANCIA",new ImageIcon("images/francia.jpg"));
 		JButton canada = new JButton("CANADA",new ImageIcon("images/canada.gif"));
 		JButton eeuu = new JButton("EEUU",new ImageIcon("images/EstadosUnidos.png"));
 		
-		//Añadimos al JPanel
-		banderas.add(españa);
+		//Insetamos al JPanel
+		banderas.add(espania);
 		banderas.add(francia);
 		banderas.add(canada);
 		banderas.add(eeuu);
 		
 		//Movemos los textos para colocarlos bajo las banderas
-		españa.setHorizontalTextPosition(SwingConstants.CENTER);
-		españa.setVerticalTextPosition(SwingConstants.BOTTOM);
+		espania.setHorizontalTextPosition(SwingConstants.CENTER);
+		espania.setVerticalTextPosition(SwingConstants.BOTTOM);
 		
 		francia.setHorizontalTextPosition(SwingConstants.CENTER);
 		francia.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -41,13 +41,13 @@ public class MyJButton extends JFrame{
 		eeuu.setVerticalTextPosition(SwingConstants.BOTTOM);
 		
 		//Pressed icon
-		españa.setPressedIcon(new ImageIcon("images/flagspain2.png"));
+		espania.setPressedIcon(new ImageIcon("images/flagspain2.png"));
 		francia.setPressedIcon(new ImageIcon("images/francia2.jpg"));
 		canada.setPressedIcon(new ImageIcon("images/canada2.gif"));
 		eeuu.setPressedIcon(new ImageIcon("images/eeuu2.gif"));
 		
 		//Rollover icon
-		españa.setRolloverIcon( new ImageIcon("images/flagspain3.png"));
+		espania.setRolloverIcon( new ImageIcon("images/flagspain3.png"));
 		francia.setRolloverIcon( new ImageIcon("images/francia3.jpg"));
 		canada.setRolloverIcon( new ImageIcon("images/canada3.gif"));
 		eeuu.setRolloverIcon( new ImageIcon("images/eeuu3.gif"));
