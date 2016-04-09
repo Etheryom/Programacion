@@ -1,3 +1,4 @@
+package AhorcadoGraficoConHerencia;
 import javax.swing.JFrame;
 
 import Tema13Test.TestFigurePanel;

@@ -1,13 +1,13 @@
+package AhorcadoGraficoConHerencia;
 import java.awt.Graphics;
 
-public class BrazoIzquierdo extends BrazoDerecho {
-	
+public class Cabeza extends Patibulo {
+
 	protected void paintComponent(Graphics g){
 		super.paintComponent(g);
 		int y = getHeight();
 		int x = getWidth();
-		g.drawLine(x-(x/3),(int) (y-(y/1.2))+100,x-(x/3)-70,(int) (y-(y/2))+30);
+		g.drawOval(x-(x/3)-39, (int) (y-(y/1.2)), 75,75 );
 		repaint();
 	}
-
 }

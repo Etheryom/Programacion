@@ -1,3 +1,4 @@
+package AhorcadoGraficoConHerencia;
 import java.awt.Graphics;
 
 public class PiernaDerecha extends BrazoIzquierdo {
