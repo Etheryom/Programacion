@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 public class Patibulo extends JPanel {
 	
 	protected void paintComponent(Graphics g){
+		super.paintComponent(g);
 		int y = getHeight();
 		int x = getWidth();
 		g.drawLine(30, y, 30, 30);
