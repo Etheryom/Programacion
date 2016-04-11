@@ -11,7 +11,7 @@ public class TestAhorcadograficoSinHerencia extends JFrame {
 	
 	public TestAhorcadograficoSinHerencia(){
 		
-		add(new AhorcadoGrafico(6));
+		add(new AhorcadoGrafico(5));
 		
 		/*JPanel panel = new JPanel(new GridLayout(1, 1));
 		panel.setSize(800, 600);
