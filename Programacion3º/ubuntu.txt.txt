@@ -1,0 +1,8 @@
+Monitor
+Torre
+Altavoces
+Raton
+Teclado
+Impresora
+Escaner
+Reproductor
