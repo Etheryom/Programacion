@@ -89,8 +89,6 @@ public class Interface extends JFrame {
 				
 		}
 		teclado.add(new JButton(new ImageIcon("images/teclado/Ñ.jpg")));
-		//teclado.add(teclado.getComponent(0)).setBackground(new Color(74,74,74));;
-
 		return teclado;
 	}
 	
@@ -107,37 +105,38 @@ public class Interface extends JFrame {
 			String letter;
 			
 			//Dependiendo del objeto que lo llamara realizara una opcion
-		for(int i = 0;i<27;i++){
-			
-			if(myObject == teclado.getComponent(i)){
-				char letra = 'A';
-				letra+=i;
+			for(int i = 0;i<27;i++){
 				
-				if(i==26)
-					 letter = Character.toString('Ñ');
-				else
-					 letter = Character.toString(letra);
-				System.out.println(letter);
-				
-				if(controlador.checkLetter(letter)){
-					teclado.getComponent(i).setBackground(Color.GREEN);
-					teclado.getComponent(i).setEnabled(false);
+				if(myObject == teclado.getComponent(i)){
+					char letra = 'A';
+					letra+=i;
+					
+					if(i==26)
+						 letter = Character.toString('Ñ');
+					else
+						 letter = Character.toString(letra);
+					
+					
+					if(controlador.checkLetter(letter)){
+						teclado.getComponent(i).setBackground(Color.GREEN);
+						teclado.getComponent(i).setEnabled(false);
+					}
+					else{
+						teclado.getComponent(i).setBackground(Color.RED);
+						teclado.getComponent(i).setEnabled(false);
+					}
+					
+					letra = 'A';
 				}
-				else{
-					teclado.getComponent(i).setBackground(Color.RED);
-					teclado.getComponent(i).setEnabled(false);
-				}
 				
-				letra = 'A';
 			}
-			
-		}
 			
 			
 		}
 		
 	}
-public static void main(String[] args) throws FileNotFoundException{
+	
+	public static void main(String[] args) throws FileNotFoundException{
 		
 		
 		String ruta;
