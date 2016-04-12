@@ -58,9 +58,7 @@ public class TestAhorcadograficoSinHerencia extends JFrame {
 	    pantalla.setSize(400, 800);
 	    pantalla.setLocationRelativeTo(null); // Center the frame   
 	    pantalla.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    pantalla.setVisible(true);  
-	    
-
+	    pantalla.setVisible(true);
 	}
 
 }
