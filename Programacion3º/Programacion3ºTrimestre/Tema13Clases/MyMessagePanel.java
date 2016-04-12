@@ -7,6 +7,22 @@ import javax.swing.JPanel;
 
 public class MyMessagePanel extends JPanel{
 	
+	private String message;
+	private int xCoordinate = 20;
+	private int yCoordinate = 20;
+	private boolean centered;
+	private int interval = 10;
+	
+	//Constructores
+	public MyMessagePanel(){
+		this("This is Java");
+	}
+	
+	public MyMessagePanel(String message){
+		this.message = message;
+	}
+	
+	//Getters and Setters
 	public String getMessage() {
 		return message;
 	}
@@ -50,22 +66,10 @@ public class MyMessagePanel extends JPanel{
 	public void setInterval(int interval) {
 		this.interval = interval;
 	}
-
-	private String message;
-	private int xCoordinate = 20;
-	private int yCoordinate = 20;
-	private boolean centered;
-	private int interval = 10;
 	
-	public MyMessagePanel(){
-		this("This is Java");
-	}
 	
-	public MyMessagePanel(String message){
-		this.message = message;
-	}
-	
-	  protected void paintComponent(Graphics g) {
+	//Paint Component
+	protected void paintComponent(Graphics g) {
 		    super.paintComponent(g);
 
 		    if (centered) {
@@ -85,25 +89,25 @@ public class MyMessagePanel extends JPanel{
 		    g.drawString(message, xCoordinate, yCoordinate);
 		  }
 
-
-		  public void moveLeft() {
+	//Metodos para eventos
+	public void moveLeft() {
 		    xCoordinate -= interval;
 		    repaint();
 		  }
 
 
-		  public void moveRight() {
+	public void moveRight() {
 		    xCoordinate += interval;
 		    repaint();
 		  }
 
 
-		  public void moveUp() {
+	public void moveUp() {
 		    yCoordinate -= interval;
 		    repaint();
 		  }
 
-		  public void moveDown() {
+	public void moveDown() {
 		    yCoordinate += interval;
 		    repaint();
 		  }
