@@ -123,10 +123,12 @@ public class Interface extends JFrame {
 			
 			if(controlador.equals(introducido)){
 				System.out.println("Ganaste");
+				ahr.add(new VictoriaDerrota(true));
 			}
 			
 			else{
 				System.out.println("Perdiste");
+				ahr.add(new VictoriaDerrota(false));
 			}
 			
 			//Bloqueo todas las teclas, el boton comprobar y el textfield
@@ -191,6 +193,8 @@ public class Interface extends JFrame {
 							comprobar.setEnabled(false);
 							cajon.setEnabled(false);
 							
+							ahr.add(new VictoriaDerrota(true));
+							
 							System.out.println("GANASTE");
 						}
 					}
@@ -216,6 +220,8 @@ public class Interface extends JFrame {
 							
 							comprobar.setEnabled(false);
 							cajon.setEnabled(false);
+							
+							ahr.add(new VictoriaDerrota(false));
 							
 							System.out.println("PERDISTE");
 						}
