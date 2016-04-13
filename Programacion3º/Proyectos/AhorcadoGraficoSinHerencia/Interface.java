@@ -9,13 +9,13 @@ import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 public class Interface extends JFrame {
@@ -29,7 +29,11 @@ public class Interface extends JFrame {
 	private JLabel letras_label;
 	private JLabel mascara_mascara;
 	
+	private JButton comprobar;
+	private JTextField cajon;
+	
 	private JPanel teclado;
+	private JPanel intentar;
 	private JPanel ahr;
 	
 	public Interface(){
@@ -52,8 +56,13 @@ public class Interface extends JFrame {
 		JPanel informacion = new JPanel(new GridLayout(2, 1));
 		JPanel errores = new JPanel(new GridLayout(2, 1));
 		JPanel mascara = new JPanel(new FlowLayout(1));
+		intentar = new JPanel(new GridLayout(1, 2));
 		ahr = new JPanel(new BorderLayout());
 		teclado=crearLetras();
+		
+		//Defino los elementos que comprobaran la palabra insertado por el usuario
+		cajon=new JTextField(1);
+		comprobar = new JButton("Comprobar");
 		
 		//Creacion de Labels y adiccion a los paneles correspondiente
 		errores.add(fallos_label);
@@ -61,6 +70,8 @@ public class Interface extends JFrame {
 		mascara.add(mascara_mascara);
 		informacion.add(errores);
 		informacion.add(mascara);
+		intentar.add(cajon);
+		intentar.add(comprobar);
 		
 		//Cambio de fuentes y colores
 		fallos_label.setFont(new Font("SansSerif ", Font.BOLD, 16));
@@ -77,15 +88,21 @@ public class Interface extends JFrame {
 		//Adiccion al Frame
 		add(informacion,BorderLayout.NORTH);
 		ahr.add(new AhorcadoGrafico(fallos),BorderLayout.CENTER);
+		ahr.add(intentar,BorderLayout.SOUTH);
 		add(ahr);
 		add(teclado,BorderLayout.SOUTH);
 		
-		//Adiccion eventos
+		//Adiccion eventos del teclado grafico a todas las teclas
 		for(int i =0;i<27;i++){
-		TecladoListener ok = new TecladoListener();
+		TecladoListener tecladoGrafico = new TecladoListener();
 		JButton ok1 = (JButton) teclado.getComponent(i);
-		ok1.addActionListener(ok);
+		ok1.addActionListener(tecladoGrafico);
 		}
+		
+		//Configuracion del evento del boton comprobar
+		ComprobarListener check = new ComprobarListener();
+		comprobar.addActionListener(check);
+		
 
 	}
 	public JPanel crearLetras(){
@@ -97,6 +114,34 @@ public class Interface extends JFrame {
 		}
 		teclado.add(new JButton(new ImageIcon("images/teclado/Ñ.jpg")));
 		return teclado;
+	}
+	
+	private class ComprobarListener implements ActionListener{
+
+		public void actionPerformed(ActionEvent e) {
+			String introducido = cajon.getText();
+			
+			if(controlador.equals(introducido)){
+				System.out.println("Ganaste");
+			}
+			
+			else{
+				System.out.println("Perdiste");
+			}
+			
+			//Bloqueo todas las teclas, el boton comprobar y el textfield
+			for(int i = 0;i<teclado.getComponentCount();i++){
+				teclado.getComponent(i).setEnabled(false);
+			}
+			comprobar.setEnabled(false);
+			cajon.setEnabled(false);
+			
+			//Desbloqueo la mascara
+			mask=ahorcado.getWord();
+			mascara_mascara.setText(mask);
+			
+		}
+		
 	}
 	
 	private class TecladoListener implements ActionListener{
@@ -136,6 +181,18 @@ public class Interface extends JFrame {
 						mask=ahorcado.getMaskWord();
 						mascara_mascara.setText(mask);
 						
+						//Compruebo si he ganado, de ser asi, bloqueo teclado y lanzo mensaje
+						if(controlador.ganar()){
+							//BLOQUEO TECLADO Y CAJON DE COMPROBACION
+							for(int j = 0;j<teclado.getComponentCount();j++){
+								teclado.getComponent(j).setEnabled(false);
+							}
+							
+							comprobar.setEnabled(false);
+							cajon.setEnabled(false);
+							
+							System.out.println("GANASTE");
+						}
 					}
 					else{
 						//cambio color a rojo por fallar y bloqueo la tecla
@@ -148,8 +205,20 @@ public class Interface extends JFrame {
 						
 						//Actualizamos el muñeco del ahorcado, removiendo el anterior y poniendo el nuevo
 						ahr.removeAll();
-						ahr.add(new AhorcadoGrafico(fallos));
+						ahr.add(new AhorcadoGrafico(fallos),BorderLayout.CENTER);
+						ahr.add(intentar,BorderLayout.SOUTH);
 						
+						if(fallos==7){
+							//BLOQUEO TECLADO Y CAJON DE COMPROBACION
+							for(int k = 0;k<teclado.getComponentCount();k++){
+								teclado.getComponent(k).setEnabled(false);
+							}
+							
+							comprobar.setEnabled(false);
+							cajon.setEnabled(false);
+							
+							System.out.println("PERDISTE");
+						}
 						
 					}
 					
