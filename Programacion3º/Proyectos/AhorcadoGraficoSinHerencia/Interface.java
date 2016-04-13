@@ -16,6 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 public class Interface extends JFrame {
 	private static ControladorAhorcado controlador = null;
@@ -24,7 +25,8 @@ public class Interface extends JFrame {
 	private String letrasIntroducidas;
 	private int fallos;
 	
-	private JLabel fallos_Letras;
+	private JLabel fallos_label;
+	private JLabel letras_label;
 	private JLabel mascara_mascara;
 	
 	private JPanel teclado;
@@ -37,7 +39,9 @@ public class Interface extends JFrame {
 		this.fallos = controlador.getErrores();
 		this.letrasIntroducidas = controlador.getLetterIntroduced();
 		
-		fallos_Letras = new JLabel("Letras Introducidas: "+letrasIntroducidas+"   Fallos "+fallos+"/7");
+		fallos_label = new JLabel("Fallos: "+fallos+"/7",SwingConstants.CENTER);
+		//"<html><div style='text-align: center;'>" + "Fallos: "+fallos+"/7" + "</html>"
+		letras_label = new JLabel("  Introducidas: "+letrasIntroducidas);
 		mascara_mascara = new JLabel(mask);
 		
 		
@@ -46,21 +50,24 @@ public class Interface extends JFrame {
 		
 		//Crecion de Paneles -- NOTA: Informacion contiene a errores y mascara
 		JPanel informacion = new JPanel(new GridLayout(2, 1));
-		JPanel errores = new JPanel(new FlowLayout(1));
+		JPanel errores = new JPanel(new GridLayout(2, 1));
 		JPanel mascara = new JPanel(new FlowLayout(1));
 		ahr = new JPanel(new BorderLayout());
 		teclado=crearLetras();
 		
 		//Creacion de Labels y adiccion a los paneles correspondiente
-		errores.add(fallos_Letras);
+		errores.add(fallos_label);
+		errores.add(letras_label);
 		mascara.add(mascara_mascara);
 		informacion.add(errores);
 		informacion.add(mascara);
 		
 		//Cambio de fuentes y colores
-		fallos_Letras.setFont(new Font("SansSerif ", Font.BOLD, 16));
+		fallos_label.setFont(new Font("SansSerif ", Font.BOLD, 16));
+		letras_label.setFont(new Font("SansSerif ", Font.BOLD, 12));
 		mascara_mascara.setFont(new Font("SansSerif ", Font.BOLD, 30));
-		fallos_Letras.setForeground(Color.WHITE);
+		fallos_label.setForeground(Color.RED);
+		letras_label.setForeground(Color.WHITE);
 		
 		//cambio de color de fondos
 		errores.setBackground(Color.BLACK);
@@ -118,6 +125,7 @@ public class Interface extends JFrame {
 						 letter = Character.toString(letra);
 					
 					
+					
 					if(controlador.checkLetter(letter)){
 						//cambio color a verde por acertar y bloqueo la tecla
 						teclado.getComponent(i).setBackground(Color.GREEN);
@@ -136,7 +144,7 @@ public class Interface extends JFrame {
 						
 						//Actualizo fallos y modifico el JLabel de fallos
 						fallos=controlador.getErrores();
-						fallos_Letras.setText("Letras Introducidas: "+letrasIntroducidas+"   Fallos "+fallos+"/7");
+						fallos_label.setText("Fallos: "+fallos+"/7");
 						
 						//Actualizamos el muñeco del ahorcado, removiendo el anterior y poniendo el nuevo
 						ahr.removeAll();
@@ -148,6 +156,11 @@ public class Interface extends JFrame {
 					letra = 'A';
 				}
 			}
+			//Añado la letra al conjunto de letras usadas
+			letrasIntroducidas = controlador.getLetterIntroduced();
+			letras_label.setText("  Introducidas: "+letrasIntroducidas);
+			
+			
 		}
 	}
 	
