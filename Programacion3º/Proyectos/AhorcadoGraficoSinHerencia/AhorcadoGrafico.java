@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 public class AhorcadoGrafico extends JPanel {
-	private int errores = 0;
+	private int errores;
 	
 	public AhorcadoGrafico(int errores){
 		this.errores = errores;
@@ -14,6 +14,7 @@ public class AhorcadoGrafico extends JPanel {
 	
 	
 	protected void paintComponent(Graphics g){
+		super.paintComponent(g);
 		int y = getHeight();
 		int x = getWidth();
 		
@@ -21,41 +22,50 @@ public class AhorcadoGrafico extends JPanel {
 		switch(errores){
 		
 			//Pierna Izquierda
-			case 7:
+			case 6:
 				g.drawLine(x-(x/3), (int) (y-(y/2.5)), x-(x/3)-60, (int) (y-(y/2.5))+140);
 			
 			//Pierna Derecha
-			case 6:
+			case 5:
 				g.drawLine(x-(x/3), (int) (y-(y/2.5)), x-(x/3)+60, (int) (y-(y/2.5))+140);
 
 			
 			//Brazo Izquierdo
-			case 5:
+			case 4:
 				g.drawLine(x-(x/3),(int) (y-(y/1.2))+100,x-(x/3)-70,(int) (y-(y/2))+30);
 
 			
 			//Brazo Derecho
-			case 4:
+			case 3:
 				g.drawLine(x-(x/3),(int) (y-(y/1.2))+100,x-(x/3)+70,(int) (y-(y/2))+30);
 
 			
 			//Tronco
-			case 3:
+			case 2:
 				g.drawLine(x-(x/3), (int) (y-(y/1.2))+75, x-(x/3), (int) (y-(y/2.5)));
 
 			
 			//Cabeza
-			case 2:
+			case 1:
 				g.drawOval(x-(x/3)-39, (int) (y-(y/1.2)), 75,75 );
 
 			
 			//Patibulo
-			case 1:
+			case 0:
 				g.drawLine(30, y, 30, 30);
 				g.drawLine(30, 30, x-(x/3), 30);
 				g.drawLine(x-(x/3), 30, x-(x/3), (int) (y-(y/1.2)));
 		}
 		
+	}
+	public int getErrores() {
+		return errores;
+	}
+
+
+	public void setErrores(int errores) {
+		this.errores = errores;
+		repaint();
 	}
 
 }

@@ -28,14 +28,14 @@ public class Interface extends JFrame {
 	private JLabel mascara_mascara;
 	
 	private JPanel teclado;
+	private JPanel ahr;
 	
-	
-	public Interface(String mask,int fallos,String letrasIntroducidas){
+	public Interface(){
 		
 		//Defino Propiedades
-		this.mask= mask;
-		this.fallos = fallos;
-		this.letrasIntroducidas = letrasIntroducidas;
+		this.mask= ahorcado.getMaskWord().toUpperCase();
+		this.fallos = controlador.getErrores();
+		this.letrasIntroducidas = controlador.getLetterIntroduced();
 		
 		fallos_Letras = new JLabel("Letras Introducidas: "+letrasIntroducidas+"   Fallos "+fallos+"/7");
 		mascara_mascara = new JLabel(mask);
@@ -48,7 +48,7 @@ public class Interface extends JFrame {
 		JPanel informacion = new JPanel(new GridLayout(2, 1));
 		JPanel errores = new JPanel(new FlowLayout(1));
 		JPanel mascara = new JPanel(new FlowLayout(1));
-		JPanel ahr = new JPanel(new BorderLayout());
+		ahr = new JPanel(new BorderLayout());
 		teclado=crearLetras();
 		
 		//Creacion de Labels y adiccion a los paneles correspondiente
@@ -69,7 +69,7 @@ public class Interface extends JFrame {
 		
 		//Adiccion al Frame
 		add(informacion,BorderLayout.NORTH);
-		ahr.add(new AhorcadoGrafico(7),BorderLayout.CENTER);
+		ahr.add(new AhorcadoGrafico(fallos),BorderLayout.CENTER);
 		add(ahr);
 		add(teclado,BorderLayout.SOUTH);
 		
@@ -108,6 +108,7 @@ public class Interface extends JFrame {
 			for(int i = 0;i<27;i++){
 				
 				if(myObject == teclado.getComponent(i)){
+					
 					char letra = 'A';
 					letra+=i;
 					
@@ -118,26 +119,39 @@ public class Interface extends JFrame {
 					
 					
 					if(controlador.checkLetter(letter)){
+						//cambio color a verde por acertar y bloqueo la tecla
 						teclado.getComponent(i).setBackground(Color.GREEN);
 						teclado.getComponent(i).setEnabled(false);
+						
+						//Actualizo mascara, cargo la mascara y modifico el JLabel
+						controlador.actualizarMascara(letter);
+						mask=ahorcado.getMaskWord();
+						mascara_mascara.setText(mask);
+						
 					}
 					else{
+						//cambio color a rojo por fallar y bloqueo la tecla
 						teclado.getComponent(i).setBackground(Color.RED);
 						teclado.getComponent(i).setEnabled(false);
+						
+						//Actualizo fallos y modifico el JLabel de fallos
+						fallos=controlador.getErrores();
+						fallos_Letras.setText("Letras Introducidas: "+letrasIntroducidas+"   Fallos "+fallos+"/7");
+						
+						//Actualizamos el muñeco del ahorcado, removiendo el anterior y poniendo el nuevo
+						ahr.removeAll();
+						ahr.add(new AhorcadoGrafico(fallos));
+						
+						
 					}
 					
 					letra = 'A';
 				}
-				
 			}
-			
-			
 		}
-		
 	}
 	
 	public static void main(String[] args) throws FileNotFoundException{
-		
 		
 		String ruta;
 		String nombreDiccionario;
@@ -172,8 +186,8 @@ public class Interface extends JFrame {
 		}while(!acceso);
 		
 		
-		Interface pantalla = new Interface(controlador.getAhorcado().getWord().toUpperCase(),controlador.getErrores(),controlador.getLetterIntroduced());
-	    pantalla.setTitle("TestPaintComponent");
+		Interface pantalla = new Interface();
+	    pantalla.setTitle("Juego del Ahorcado");
 	    pantalla.setSize(400, 800);
 	    pantalla.setLocationRelativeTo(null); // Center the frame   
 	    pantalla.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

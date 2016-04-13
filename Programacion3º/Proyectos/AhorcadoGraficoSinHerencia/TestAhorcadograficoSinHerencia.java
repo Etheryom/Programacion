@@ -53,7 +53,7 @@ public class TestAhorcadograficoSinHerencia extends JFrame {
 		}while(!acceso);
 		
 		
-		Interface pantalla = new Interface(controlador.getAhorcado().getWord().toUpperCase(),controlador.getErrores(),controlador.getLetterIntroduced());
+		Interface pantalla = new Interface();
 	    pantalla.setTitle("TestPaintComponent");
 	    pantalla.setSize(400, 800);
 	    pantalla.setLocationRelativeTo(null); // Center the frame   

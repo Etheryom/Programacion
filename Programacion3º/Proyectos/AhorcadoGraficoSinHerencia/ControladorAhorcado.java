@@ -28,6 +28,9 @@ public class ControladorAhorcado {
 	public int getErrores(){
 		return errores;
 	}
+	public void setErrores(int errores){
+		this.errores=errores;
+	}
 	
 	public String getLetterIntroduced(){
 		return letterIntroduced;
