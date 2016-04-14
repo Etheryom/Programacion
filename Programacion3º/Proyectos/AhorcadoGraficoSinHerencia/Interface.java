@@ -44,7 +44,6 @@ public class Interface extends JFrame {
 		this.letrasIntroducidas = controlador.getLetterIntroduced();
 		
 		fallos_label = new JLabel("Fallos: "+fallos+"/7",SwingConstants.CENTER);
-		//"<html><div style='text-align: center;'>" + "Fallos: "+fallos+"/7" + "</html>"
 		letras_label = new JLabel("  Introducidas: "+letrasIntroducidas);
 		mascara_mascara = new JLabel(mask);
 		
@@ -105,6 +104,8 @@ public class Interface extends JFrame {
 		
 
 	}
+	
+	//Creo el teclado graficos
 	public JPanel crearLetras(){
 		JPanel teclado = new JPanel(new GridLayout(3,10,0,0));
 
@@ -116,18 +117,18 @@ public class Interface extends JFrame {
 		return teclado;
 	}
 	
+	//<<<<<<<<<<<<<<<<<<----CLASES INTERNAS ----->>>>>>>>>>>>>>>>>>>>>
+	
 	private class ComprobarListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
 			String introducido = cajon.getText();
 			
 			if(controlador.equals(introducido)){
-				System.out.println("Ganaste");
 				ahr.add(new VictoriaDerrota(true));
 			}
 			
 			else{
-				System.out.println("Perdiste");
 				ahr.add(new VictoriaDerrota(false));
 			}
 			
@@ -194,8 +195,6 @@ public class Interface extends JFrame {
 							cajon.setEnabled(false);
 							
 							ahr.add(new VictoriaDerrota(true));
-							
-							System.out.println("GANASTE");
 						}
 					}
 					else{
@@ -223,7 +222,9 @@ public class Interface extends JFrame {
 							
 							ahr.add(new VictoriaDerrota(false));
 							
-							System.out.println("PERDISTE");
+							//Desbloqueo la mascara
+							mask=ahorcado.getWord();
+							mascara_mascara.setText(mask);
 						}
 						
 					}
@@ -238,6 +239,8 @@ public class Interface extends JFrame {
 			
 		}
 	}
+	
+	//<<<<<<<<<<<<<<<<<<----AQUI COMIENZA EL MAIN ----->>>>>>>>>>>>>>>>>>>>>
 	
 	public static void main(String[] args) throws FileNotFoundException{
 		
