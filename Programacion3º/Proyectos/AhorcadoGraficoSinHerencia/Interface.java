@@ -125,10 +125,15 @@ public class Interface extends JFrame {
 			String introducido = cajon.getText();
 			
 			if(controlador.equals(introducido)){
+				
+				//Remueve todos los elementos del panel(Ahorcado+intentar) y añado el de victoria
+				ahr.removeAll();
 				ahr.add(new VictoriaDerrota(true));
 			}
 			
 			else{
+				//Remueve todos los elementos del panel(Ahorcado+intentar) y añado el de victoria
+				ahr.removeAll();
 				ahr.add(new VictoriaDerrota(false));
 			}
 			
@@ -136,10 +141,8 @@ public class Interface extends JFrame {
 			for(int i = 0;i<teclado.getComponentCount();i++){
 				teclado.getComponent(i).setEnabled(false);
 			}
-			comprobar.setEnabled(false);
-			cajon.setEnabled(false);
 			
-			//Desbloqueo la mascara
+			//Desbloqueo la mascara tanto si gana como si pierde
 			mask=ahorcado.getWord();
 			mascara_mascara.setText(mask);
 			
@@ -184,16 +187,15 @@ public class Interface extends JFrame {
 						mask=ahorcado.getMaskWord();
 						mascara_mascara.setText(mask);
 						
-						//Compruebo si he ganado, de ser asi, bloqueo teclado y lanzo mensaje
+						//--COMPRUEBO SI HE GANADO CON CADA LETRA INTRODUCIDA VALIDA--
 						if(controlador.ganar()){
 							//BLOQUEO TECLADO Y CAJON DE COMPROBACION
 							for(int j = 0;j<teclado.getComponentCount();j++){
 								teclado.getComponent(j).setEnabled(false);
 							}
 							
-							comprobar.setEnabled(false);
-							cajon.setEnabled(false);
-							
+							//Remueve todos los elementos del panel(Ahorcado+intentar) y añado el de victoria
+							ahr.removeAll();
 							ahr.add(new VictoriaDerrota(true));
 						}
 					}
@@ -211,15 +213,16 @@ public class Interface extends JFrame {
 						ahr.add(new AhorcadoGrafico(fallos),BorderLayout.CENTER);
 						ahr.add(intentar,BorderLayout.SOUTH);
 						
+						
+						//--COMPRUEBO SI HE PERDIDO AL INSERTAR UNA LETRA INCORRECTA--
 						if(fallos==7){
 							//BLOQUEO TECLADO Y CAJON DE COMPROBACION
 							for(int k = 0;k<teclado.getComponentCount();k++){
 								teclado.getComponent(k).setEnabled(false);
 							}
 							
-							comprobar.setEnabled(false);
-							cajon.setEnabled(false);
-							
+							//Remueve todos los elementos del panel(Ahorcado+intentar) y añado el de victoria
+							ahr.removeAll();
 							ahr.add(new VictoriaDerrota(false));
 							
 							//Desbloqueo la mascara
