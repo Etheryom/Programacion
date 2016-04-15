@@ -1,4 +1,5 @@
 package AhorcadoGraficoSinHerencia;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -113,7 +114,7 @@ public class Interface extends JFrame {
 			teclado.add(new JButton(new ImageIcon("images/teclado/"+i+".jpg")));
 				
 		}
-		teclado.add(new JButton(new ImageIcon("images/teclado/√ë.jpg")));
+		teclado.add(new JButton(new ImageIcon("images/teclado/—.jpg")));
 		return teclado;
 	}
 	
@@ -171,7 +172,7 @@ public class Interface extends JFrame {
 					letra+=i;
 					
 					if(i==26)
-						 letter = Character.toString('√ë');
+						 letter = Character.toString('—');
 					else
 						 letter = Character.toString(letra);
 					
@@ -245,41 +246,36 @@ public class Interface extends JFrame {
 	
 	//<<<<<<<<<<<<<<<<<<----AQUI COMIENZA EL MAIN ----->>>>>>>>>>>>>>>>>>>>>
 	
-	public static void main(String[] args) throws FileNotFoundException{
+	public static void main(String[] args) throws IOException{
 		
-		String ruta;
-		String nombreDiccionario;
-		String categoria;
-		boolean acceso = true;
+		String ruta="";
+		String nombreDiccionario="caca";
+		String categoria = "Programacion";
+		boolean acceso = false;
+		
+		ahorcado = new Ahorcado();
+		
+		Configuracion c = new Configuracion();
+	    c.setTitle("Configuracion Ahorcado");
+	    c.pack();
+	    c.setLocationRelativeTo(null); // Center the frame   
+	    c.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    c.setVisible(true);
+	    
 
+	    
+	    while(!acceso){
+	    ruta= c.getRuta();
+		nombreDiccionario = c.getnombreDiccionario();
+		categoria = c.getCategory();
+		acceso= c.getFalse();
+		System.out.print("");
+	    }
+	    
+	    ahorcado = new Ahorcado(new Diccionario(ruta,categoria));
+	    controlador = new ControladorAhorcado(ahorcado);
 		
-		do{
-			acceso=true;
-			ruta = JOptionPane.showInputDialog(null,"Seleccione la ruta donde quiere instalar el juego");
-			nombreDiccionario = JOptionPane.showInputDialog(null,"Seleccione el nombre que quieres darle al archivo que se crear√°");
-			nombreDiccionario+=".txt";
-			ruta+=nombreDiccionario;
-			categoria = JOptionPane.showInputDialog(null,"Seleccione la categoria que quieras:\n-Perifericos.\n-Hardware.\n-Programacion.");
-			
-			try {
-			
-			ahorcado = new Ahorcado(new Diccionario(ruta,categoria));
-			controlador = new ControladorAhorcado(ahorcado);
-				
-		} catch (IOException ex) {
-			acceso=false;
-			System.out.println("Disculpe, pero la ruta de instalacion insertada no es correcta");
-			
-		}
-		catch (IndexOutOfBoundsException ex) {
-				acceso=false;
-				System.out.println("La categoria seleccionada no existe.");
-				
-			}
-			
-		}while(!acceso);
-		
-		
+	    
 		Interface pantalla = new Interface();
 	    pantalla.setTitle("Juego del Ahorcado");
 	    pantalla.setSize(400, 800);
