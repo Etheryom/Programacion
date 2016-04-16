@@ -42,8 +42,8 @@ public class Configuracion  extends JFrame{
 		informacion = new JPanel(new GridLayout(3,2,10,10));
 		enviar_informacion = new JPanel( new FlowLayout(1));
 	
-		directorio = new JTextField(1);
-		archivo = new JTextField(1);
+		directorio = new JTextField();
+		archivo = new JTextField();
 		info_categoria = new JLabel("Seleccione la catergoria");
 		info_directorio = new JLabel("Ruta de instalacion");
 		info_archivo = new JLabel("Nombre del archivo");
@@ -85,7 +85,7 @@ public class Configuracion  extends JFrame{
 		return category;
 	}
 	
-	public boolean getFalse(){
+	public boolean getAcceso(){
 		return acceso;
 	}
 	

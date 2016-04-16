@@ -35,7 +35,6 @@ public class Ahorcado {
 	public String getWord() {
 		return word;
 	}
-	
 
 	public void setWord(String word) {
 		this.word = word;
@@ -50,7 +49,7 @@ public class Ahorcado {
 	}
 
 	
-	private String createMaskWord(){
+	public String createMaskWord(){
 		String mask="";
 		for(int i=0;i<word.length();i++){
 			mask+="*";

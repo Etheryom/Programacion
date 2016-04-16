@@ -36,6 +36,10 @@ public class ControladorAhorcado {
 		return letterIntroduced;
 	}
 	
+	public void setLetterIntroduced(String letras){
+		letterIntroduced = letras;
+	}
+	
 
 	public void actualizarMascara(String letter){
 		char letra = letter.toUpperCase().charAt(0);

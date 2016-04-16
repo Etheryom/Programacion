@@ -7,6 +7,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,15 +24,18 @@ import javax.swing.SwingConstants;
 public class Interface extends JFrame {
 	private static ControladorAhorcado controlador = null;
 	private static Ahorcado ahorcado = null;
+	private static Diccionario diccionario =null;
 	private String mask;
 	private String letrasIntroducidas;
 	private int fallos;
+	static Interface pantalla;
 	
 	private JLabel fallos_label;
 	private JLabel letras_label;
 	private JLabel mascara_mascara;
 	
 	private JButton comprobar;
+	private JButton reiniciar;
 	private JTextField cajon;
 	
 	private JPanel teclado;
@@ -64,6 +69,10 @@ public class Interface extends JFrame {
 		cajon=new JTextField(1);
 		comprobar = new JButton("Comprobar");
 		
+		//instancio boton de reiniciar, pero no lo añado
+		reiniciar = new JButton("REINICIAR");
+		
+		
 		//Creacion de Labels y adiccion a los paneles correspondiente
 		errores.add(fallos_label);
 		errores.add(letras_label);
@@ -79,6 +88,8 @@ public class Interface extends JFrame {
 		mascara_mascara.setFont(new Font("SansSerif ", Font.BOLD, 30));
 		fallos_label.setForeground(Color.RED);
 		letras_label.setForeground(Color.WHITE);
+		reiniciar.setFont(new Font("SansSerif ", Font.BOLD, 24));
+		reiniciar.setForeground(Color.RED);
 		
 		//cambio de color de fondos
 		errores.setBackground(Color.BLACK);
@@ -103,6 +114,10 @@ public class Interface extends JFrame {
 		ComprobarListener check = new ComprobarListener();
 		comprobar.addActionListener(check);
 		
+		//Configuracion del eventos del boton reiniciar
+		Reiniciar reload = new Reiniciar(pantalla,diccionario);
+		reiniciar.addActionListener(reload);
+		
 
 	}
 	
@@ -114,8 +129,31 @@ public class Interface extends JFrame {
 			teclado.add(new JButton(new ImageIcon("images/teclado/"+i+".jpg")));
 				
 		}
-		teclado.add(new JButton(new ImageIcon("images/teclado/�.jpg")));
+		teclado.add(new JButton(new ImageIcon("images/teclado/Ñ.jpg")));
 		return teclado;
+	}
+	
+	public void bloquearTeclado(boolean bloquear){
+		
+		if(bloquear){
+			
+			for(int i = 0;i<teclado.getComponentCount();i++){
+				teclado.getComponent(i).setEnabled(false);
+			}
+			
+		}
+		else{
+			
+			for(int i = 0;i<teclado.getComponentCount();i++){
+				teclado.getComponent(i).setEnabled(true);
+			}
+			
+		}
+	}
+	public void cambiarColorTodasLasTeclasPorDefecto(){
+		for(int i = 0;i<teclado.getComponentCount();i++){
+			teclado.getComponent(i).setBackground(Color.WHITE);
+		}
 	}
 	
 	//<<<<<<<<<<<<<<<<<<----CLASES INTERNAS ----->>>>>>>>>>>>>>>>>>>>>
@@ -129,19 +167,19 @@ public class Interface extends JFrame {
 				
 				//Remueve todos los elementos del panel(Ahorcado+intentar) y añado el de victoria
 				ahr.removeAll();
-				ahr.add(new VictoriaDerrota(true));
+				ahr.add(new VictoriaDerrota(true),BorderLayout.CENTER);
+				ahr.add(reiniciar,BorderLayout.SOUTH);
 			}
 			
 			else{
 				//Remueve todos los elementos del panel(Ahorcado+intentar) y añado el de victoria
 				ahr.removeAll();
-				ahr.add(new VictoriaDerrota(false));
+				ahr.add(new VictoriaDerrota(false),BorderLayout.CENTER);
+				ahr.add(reiniciar,BorderLayout.SOUTH);
 			}
 			
-			//Bloqueo todas las teclas, el boton comprobar y el textfield
-			for(int i = 0;i<teclado.getComponentCount();i++){
-				teclado.getComponent(i).setEnabled(false);
-			}
+			//Bloqueo todas las teclas
+			bloquearTeclado(true);
 			
 			//Desbloqueo la mascara tanto si gana como si pierde
 			mask=ahorcado.getWord();
@@ -172,7 +210,7 @@ public class Interface extends JFrame {
 					letra+=i;
 					
 					if(i==26)
-						 letter = Character.toString('�');
+						 letter = Character.toString('Ñ');
 					else
 						 letter = Character.toString(letra);
 					
@@ -190,14 +228,13 @@ public class Interface extends JFrame {
 						
 						//--COMPRUEBO SI HE GANADO CON CADA LETRA INTRODUCIDA VALIDA--
 						if(controlador.ganar()){
-							//BLOQUEO TECLADO Y CAJON DE COMPROBACION
-							for(int j = 0;j<teclado.getComponentCount();j++){
-								teclado.getComponent(j).setEnabled(false);
-							}
+							//BLOQUEO TECLADO
+							bloquearTeclado(true);
 							
 							//Remueve todos los elementos del panel(Ahorcado+intentar) y añado el de victoria
 							ahr.removeAll();
-							ahr.add(new VictoriaDerrota(true));
+							ahr.add(new VictoriaDerrota(true),BorderLayout.CENTER);
+							ahr.add(reiniciar,BorderLayout.SOUTH);
 						}
 					}
 					else{
@@ -217,18 +254,19 @@ public class Interface extends JFrame {
 						
 						//--COMPRUEBO SI HE PERDIDO AL INSERTAR UNA LETRA INCORRECTA--
 						if(fallos==7){
-							//BLOQUEO TECLADO Y CAJON DE COMPROBACION
-							for(int k = 0;k<teclado.getComponentCount();k++){
-								teclado.getComponent(k).setEnabled(false);
-							}
 							
-							//Remueve todos los elementos del panel(Ahorcado+intentar) y añado el de victoria
+							//BLOQUEO TECLADO
+							bloquearTeclado(true);
+							
+							//Remueve todos los elementos del panel(Ahorcado+intentar) y añado el de victoria y boton reiniciar
 							ahr.removeAll();
-							ahr.add(new VictoriaDerrota(false));
+							ahr.add(new VictoriaDerrota(false),BorderLayout.CENTER);
+							ahr.add(reiniciar,BorderLayout.SOUTH);
 							
 							//Desbloqueo la mascara
 							mask=ahorcado.getWord();
 							mascara_mascara.setText(mask);
+							
 						}
 						
 					}
@@ -239,9 +277,52 @@ public class Interface extends JFrame {
 			//Añado la letra al conjunto de letras usadas
 			letrasIntroducidas = controlador.getLetterIntroduced();
 			letras_label.setText("  Introducidas: "+letrasIntroducidas);
-			
+		}
+	}
+	
+	private class Reiniciar implements ActionListener{
+		
+		public Reiniciar(Interface pantalla,Diccionario diccionario){
 			
 		}
+
+		public void actionPerformed(ActionEvent e) {
+			
+			
+			//vuelvo a pintar el ahorcado con 0 erroes
+			controlador.setErrores(0);
+			fallos=controlador.getErrores();
+			fallos_label.setText("Fallos: "+fallos+"/7");
+			
+			//Letras usadas borradas
+			controlador.setLetterIntroduced("");
+			letrasIntroducidas = controlador.getLetterIntroduced();
+			letras_label.setText("  Introducidas: "+letrasIntroducidas);
+			
+			try {
+				ahorcado.setWord(diccionario.generarPalabra());
+			} catch (FileNotFoundException e1) {
+				e1.printStackTrace();
+			}
+			
+			ahorcado.setMaskWord(ahorcado.createMaskWord());
+			mask=ahorcado.getMaskWord().toUpperCase();
+			
+			
+			
+			pantalla.dispose();
+			pantalla = new Interface();
+		    pantalla.setTitle("Juego del Ahorcado");
+		    pantalla.setSize(400, 800);
+		    pantalla.setLocationRelativeTo(null); // Center the frame   
+		    pantalla.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		    pantalla.setVisible(true);
+		    
+
+
+			
+		}
+		
 	}
 	
 	//<<<<<<<<<<<<<<<<<<----AQUI COMIENZA EL MAIN ----->>>>>>>>>>>>>>>>>>>>>
@@ -249,8 +330,8 @@ public class Interface extends JFrame {
 	public static void main(String[] args) throws IOException{
 		
 		String ruta="";
-		String nombreDiccionario="caca";
-		String categoria = "Programacion";
+		String nombreDiccionario;
+		String categoria="";
 		boolean acceso = false;
 		
 		ahorcado = new Ahorcado();
@@ -268,20 +349,24 @@ public class Interface extends JFrame {
 	    ruta= c.getRuta();
 		nombreDiccionario = c.getnombreDiccionario();
 		categoria = c.getCategory();
-		acceso= c.getFalse();
+		acceso= c.getAcceso();
 		System.out.print("");
 	    }
 	    
-	    ahorcado = new Ahorcado(new Diccionario(ruta,categoria));
+	    c.setVisible(false);
+	    
+	    diccionario = new Diccionario(ruta,categoria);
+	    ahorcado = new Ahorcado(diccionario);
 	    controlador = new ControladorAhorcado(ahorcado);
 		
 	    
-		Interface pantalla = new Interface();
+		pantalla = new Interface();
 	    pantalla.setTitle("Juego del Ahorcado");
 	    pantalla.setSize(400, 800);
 	    pantalla.setLocationRelativeTo(null); // Center the frame   
 	    pantalla.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    pantalla.setVisible(true);
+	    
 	}
 
 }
