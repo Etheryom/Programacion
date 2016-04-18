@@ -45,10 +45,10 @@ public class TestControlCircle extends JFrame{
 			Object myObject = e.getSource();
 			
 			if(myObject ==incrementar){
-				c.setRadio(c.getRadio()+1);
+				c.setIncrementoRadio(10);
 			}
 			else if(myObject == decrementar){
-				c.setRadio(c.getRadio()-1);
+				c.setDecrementoRadio(10);
 			}
 			
 		}

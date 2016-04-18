@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 public class ControlCircle extends JPanel {
 	
 	private double radio;
+
 	
 	public ControlCircle(){
 		this(1.0);
@@ -27,6 +28,27 @@ public class ControlCircle extends JPanel {
 		this.radio = radio;
 		repaint();	
 	}
+	
+	public void setIncrementoRadio(){
+		this.radio += 1;
+		repaint();	
+	}
+	
+	public void setIncrementoRadio(int intervalo){
+		this.radio += intervalo;
+		repaint();	
+	}
+	
+	public void setDecrementoRadio(){
+		this.radio -= 1;
+		repaint();	
+	}
+	
+	public void setDecrementoRadio(int intervalo){
+		this.radio -= intervalo;
+		repaint();	
+	}
+	
 	public double getRadio(){
 		return radio;
 	}
