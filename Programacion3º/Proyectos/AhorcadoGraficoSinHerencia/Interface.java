@@ -129,7 +129,7 @@ public class Interface extends JFrame {
 			teclado.add(new JButton(new ImageIcon("images/teclado/"+i+".jpg")));
 				
 		}
-		teclado.add(new JButton(new ImageIcon("images/teclado/Ñ.jpg")));
+		teclado.add(new JButton(new ImageIcon("images/teclado/NN.jpg")));
 		return teclado;
 	}
 	
@@ -148,11 +148,6 @@ public class Interface extends JFrame {
 				teclado.getComponent(i).setEnabled(true);
 			}
 			
-		}
-	}
-	public void cambiarColorTodasLasTeclasPorDefecto(){
-		for(int i = 0;i<teclado.getComponentCount();i++){
-			teclado.getComponent(i).setBackground(Color.WHITE);
 		}
 	}
 	
@@ -210,7 +205,7 @@ public class Interface extends JFrame {
 					letra+=i;
 					
 					if(i==26)
-						 letter = Character.toString('Ñ');
+						 letter = Character.toString('�');
 					else
 						 letter = Character.toString(letra);
 					
@@ -317,10 +312,6 @@ public class Interface extends JFrame {
 		    pantalla.setLocationRelativeTo(null); // Center the frame   
 		    pantalla.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		    pantalla.setVisible(true);
-		    
-
-
-			
 		}
 		
 	}
