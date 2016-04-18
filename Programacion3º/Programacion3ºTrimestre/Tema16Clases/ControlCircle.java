@@ -6,13 +6,13 @@ import javax.swing.JPanel;
 
 public class ControlCircle extends JPanel {
 	
-	private int radio;
+	private double radio;
 	
 	public ControlCircle(){
-		this(1);
+		this(1.0);
 	}
 	
-	public ControlCircle(int radio){
+	public ControlCircle(double radio){
 		this.radio = radio;
 	}
 	
@@ -20,14 +20,14 @@ public class ControlCircle extends JPanel {
 		super.paintComponent(g);
 		int x = getWidth();
 		int y = getHeight();
-		g.drawOval(x/2, y/2, radio, radio);
+		g.drawOval((int)(x/2-radio/2), (int)(y/2-radio/2),(int) radio,(int) radio);
 	}
 	
-	public void setRadio(int radio){
+	public void setRadio(double radio){
 		this.radio = radio;
 		repaint();	
 	}
-	public int getRadio(){
+	public double getRadio(){
 		return radio;
 	}
 
