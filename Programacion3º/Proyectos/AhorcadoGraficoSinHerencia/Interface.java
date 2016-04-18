@@ -25,7 +25,6 @@ public class Interface extends JFrame {
 	private static ControladorAhorcado controlador = null;
 	private static Ahorcado ahorcado = null;
 	private static Diccionario diccionario =null;
-	private static Configuracion configuracion = null;
 	private String mask;
 	private String letrasIntroducidas;
 	private int fallos;
@@ -206,7 +205,7 @@ public class Interface extends JFrame {
 					letra+=i;
 					
 					if(i==26)
-						 letter = Character.toString('Ñ');
+						 letter = Character.toString('ï¿½');
 					else
 						 letter = Character.toString(letra);
 					
