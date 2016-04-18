@@ -25,6 +25,7 @@ public class Interface extends JFrame {
 	private static ControladorAhorcado controlador = null;
 	private static Ahorcado ahorcado = null;
 	private static Diccionario diccionario =null;
+	private static Configuracion configuracion = null;
 	private String mask;
 	private String letrasIntroducidas;
 	private int fallos;
@@ -344,7 +345,9 @@ public class Interface extends JFrame {
 		System.out.print("");
 	    }
 	    
-	    c.setVisible(false);
+	 
+		   c.setVisible(false);
+	   
 	    
 	    diccionario = new Diccionario(ruta,categoria);
 	    ahorcado = new Ahorcado(diccionario);
@@ -357,7 +360,7 @@ public class Interface extends JFrame {
 	    pantalla.setLocationRelativeTo(null); // Center the frame   
 	    pantalla.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    pantalla.setVisible(true);
-	    
+	   
 	}
 
 }
