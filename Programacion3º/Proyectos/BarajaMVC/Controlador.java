@@ -25,7 +25,7 @@ public class Controlador implements ActionListener {
 			if(vista.getBaraja().getIndice()==27)
 				vista.setCartas();
 			if(vista.getBaraja().getIndice()==40)
-				System.out.println("No hay mas cartas");
+				vista.getDarCarta().setText("No quedan mas cartas");
 		}
 					
 	}
