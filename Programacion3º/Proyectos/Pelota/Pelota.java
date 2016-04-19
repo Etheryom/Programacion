@@ -56,8 +56,6 @@ public class Pelota extends JPanel {
 			if(x<getWidth()){
 				x+=velocidad;
 				repaint();
-				System.out.println(getWidth());
-				System.out.println(x);
 			}
 			//Si va hacia la derecha  y supera el limite derecho
 			else if(x>=getWidth()){
