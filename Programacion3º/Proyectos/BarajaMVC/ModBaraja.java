@@ -1,4 +1,4 @@
-package BajaraMVC;
+package BarajaMVC;
 
 import java.util.ArrayList;
 

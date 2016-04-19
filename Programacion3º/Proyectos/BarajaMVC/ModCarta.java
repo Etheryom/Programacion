@@ -1,4 +1,4 @@
-package BajaraMVC;
+package BarajaMVC;
 
 import java.awt.Graphics;
 import java.awt.Image;

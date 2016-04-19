@@ -1,4 +1,4 @@
-package BajaraMVC;
+package BarajaMVC;
 
 import java.awt.Component;
 import java.awt.GridLayout;
