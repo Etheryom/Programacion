@@ -11,7 +11,7 @@ public class TestCarta extends JFrame {
 		
 		
 		Vista vista = new Vista();
-		vista.setSize(1200,600);
+		vista.setSize(1200,700);
 		vista.setTitle("Carta");
 		vista.setVisible(true);
 	    vista.setLocationRelativeTo(null);
