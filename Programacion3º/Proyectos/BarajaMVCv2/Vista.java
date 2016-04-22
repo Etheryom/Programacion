@@ -10,9 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class Vista extends JFrame{
-	/*Antigua propiedad para las filas del grid
-	private static int filas_grid=1;*/
-	
+
 	private JPanel cartas;
 	private JPanel boton;
 	

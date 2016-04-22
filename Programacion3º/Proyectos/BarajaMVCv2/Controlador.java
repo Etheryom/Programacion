@@ -20,18 +20,17 @@ public class Controlador implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		
 		if(baraja.getIndice()<=39){
-			
 			if(baraja.getIndice()>29 && baraja.getIndice()<=39)
-				vista.getFila4().add(new VistaCarta(baraja.darCarta().getImage()));
+				vista.getFila4().add(new VistaCarta(baraja.darCarta().getImageIcon()));
 			
 			if(baraja.getIndice()>19 && baraja.getIndice()<=29)
-				vista.getFila3().add(new VistaCarta(baraja.darCarta().getImage()));
+				vista.getFila3().add(new VistaCarta(baraja.darCarta().getImageIcon()));
 			
 			if(baraja.getIndice()>9 && baraja.getIndice()<=19)
-				vista.getFila2().add(new VistaCarta(baraja.darCarta().getImage()));
+				vista.getFila2().add(new VistaCarta(baraja.darCarta().getImageIcon()));
 			
 			if(baraja.getIndice()<=9)
-				vista.getFila1().add(new VistaCarta(baraja.darCarta().getImage()));
+				vista.getFila1().add(new VistaCarta(baraja.darCarta().getImageIcon()));
 			
 			if(baraja.getIndice()==40)
 				vista.getDarCarta().setText("No quedan mas cartas");

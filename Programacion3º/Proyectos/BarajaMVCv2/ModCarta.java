@@ -27,12 +27,10 @@ public class ModCarta extends JPanel {
 		
 		imagen_Carta = icono_Carta.getImage();
 		
-		setOpaque(false);
-		
 	}
 	
-	public Image getImage(){
-		return imagen_Carta;
+	public ImageIcon getImageIcon(){
+		return icono_Carta;
 	}
 	
 	/*protected void paintComponent(Graphics g){
