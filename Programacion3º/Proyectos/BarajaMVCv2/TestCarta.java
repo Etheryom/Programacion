@@ -11,7 +11,8 @@ public class TestCarta extends JFrame {
 		
 		Vista vista = new Vista();
 		vista.arrancar(vista);
-	    
+		
+	 
 	    Controlador controlador  = new Controlador(vista);
 
 	}

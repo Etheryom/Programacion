@@ -31,11 +31,15 @@ public class ModCarta extends JPanel {
 		
 	}
 	
-	protected void paintComponent(Graphics g){
+	public Image getImage(){
+		return imagen_Carta;
+	}
+	
+	/*protected void paintComponent(Graphics g){
 		super.paintComponent(g);
 		int x=getWidth();
 		int y=getHeight();
 
 		g.drawImage(imagen_Carta, 0, 0,100,160, this );
-	}
+	}*/
 }
