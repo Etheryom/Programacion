@@ -44,10 +44,6 @@ public class ModBaraja {
 		return baraja;
 	}
 	
-	public ArrayList getBaraja(){
-		return baraja;
-	}
-	
 	public ModCarta darCarta(){
 		return baraja.get(indice++);
 	}
