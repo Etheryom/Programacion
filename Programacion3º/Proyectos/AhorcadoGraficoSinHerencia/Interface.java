@@ -28,7 +28,7 @@ public class Interface extends JFrame {
 	private String mask;
 	private String letrasIntroducidas;
 	private int fallos;
-	static Interface pantalla;
+	private static Interface pantalla;
 	
 	private JLabel fallos_label;
 	private JLabel letras_label;
@@ -151,6 +151,17 @@ public class Interface extends JFrame {
 		}
 	}
 	
+	public static void arrancar(){
+		pantalla = new Interface();
+	    pantalla.setTitle("Juego del Ahorcado");
+	    pantalla.setSize(400, 800);
+	    pantalla.setLocationRelativeTo(null); // Center the frame   
+	    pantalla.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    pantalla.setVisible(true);	
+	}
+	
+
+	
 	//<<<<<<<<<<<<<<<<<<----CLASES INTERNAS ----->>>>>>>>>>>>>>>>>>>>>
 	
 	private class ComprobarListener implements ActionListener{
@@ -205,7 +216,7 @@ public class Interface extends JFrame {
 					letra+=i;
 					
 					if(i==26)
-						 letter = Character.toString('ï¿½');
+						 letter = Character.toString('Ñ');
 					else
 						 letter = Character.toString(letra);
 					
@@ -304,14 +315,13 @@ public class Interface extends JFrame {
 			mask=ahorcado.getMaskWord().toUpperCase();
 			
 			
-			
+			//Elimino la pantalla anterior
 			pantalla.dispose();
-			pantalla = new Interface();
-		    pantalla.setTitle("Juego del Ahorcado");
-		    pantalla.setSize(400, 800);
-		    pantalla.setLocationRelativeTo(null); // Center the frame   
-		    pantalla.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		    pantalla.setVisible(true);
+			
+			//Arranco la nueva
+			pantalla.arrancar();
+			
+
 		}
 		
 	}
@@ -345,7 +355,7 @@ public class Interface extends JFrame {
 	    }
 	    
 	 
-		   c.setVisible(false);
+	    c.dispose();
 	   
 	    
 	    diccionario = new Diccionario(ruta,categoria);
@@ -353,13 +363,9 @@ public class Interface extends JFrame {
 	    controlador = new ControladorAhorcado(ahorcado);
 		
 	    
-		pantalla = new Interface();
-	    pantalla.setTitle("Juego del Ahorcado");
-	    pantalla.setSize(400, 800);
-	    pantalla.setLocationRelativeTo(null); // Center the frame   
-	    pantalla.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    pantalla.setVisible(true);
+	    pantalla.arrancar();
 	   
 	}
+
 
 }
