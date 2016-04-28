@@ -20,7 +20,28 @@ public class AhorcadoGrafico extends JPanel {
 		
 		
 		switch(errores){
+		//Cuerpo Doblado Izquierda
 		
+		//Cuerpo Doblado derecha
+		case 7: 
+			//Patibulo
+			g.drawLine(30, y, 30, 30);
+			g.drawLine(30, 30, x-(x/3), 30);
+			g.drawLine(x-(x/3), 30, x-(x/3), (int) (y-(y/1.2)));
+			
+			//cabeza
+			g.drawOval(x-(x/3)-39, (int) (y-(y/1.2)), 75,75 );
+			
+			//Tronco doblado
+			g.drawLine(x-(x/3), (int) (y-(y/1.2))+75,x-(x/3)+70, (int) (y-(y/1.2))+250);
+			
+			//Brazo derecho
+			g.drawLine(x-(x/3)+10,(int) (y-(y/1.2))+100,x-(x/3)+100,(int) (y-(y/2))+30);
+
+			//Brazo Izquierdo
+			g.drawLine(x-(x/3)+10,(int) (y-(y/1.2))+100,x-(x/3)+10,(int) (y-(y/2))+50);
+			
+		break;
 			//Pierna Izquierda
 			case 6:
 				g.drawLine(x-(x/3), (int) (y-(y/2.5)), x-(x/3)-60, (int) (y-(y/2.5))+140);
