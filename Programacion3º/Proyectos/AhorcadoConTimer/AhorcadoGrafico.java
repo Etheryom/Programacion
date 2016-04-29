@@ -52,9 +52,9 @@ public class AhorcadoGrafico extends JPanel {
 			//pierna izquierda
 			g.drawLine((int)(x*0.55)+40,(int)(y*0.7), (int)(x*0.55), y);
 			//brazo derecho
-			g.drawLine((int)(x*0.55)+40,(int)(y*0.2)+110, (int)(x*0.83), (int)(y*0.35));
+			g.drawLine((int)(x*0.55)+40,(int)(y*0.2)+110, (int)(x*0.75), (int)(y*0.75));
 			//brazo izquierdo
-			g.drawLine((int)(x*0.55)+40,(int)(y*0.2)+110, (int)(x*0.50), (int)(y*0.36));
+			g.drawLine((int)(x*0.55)+40,(int)(y*0.2)+110, (int)(x*0.55), (int)(y*0.75));
 			
 		break;
 		
