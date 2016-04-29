@@ -28,6 +28,7 @@ public class OracleDB {
 	        }
 	    } catch (Exception e) {
 	        System.out.println("Imposible establecer la conexion");
-	    }        return this;
+	    }       
+	    return this;
 	}	
 }
