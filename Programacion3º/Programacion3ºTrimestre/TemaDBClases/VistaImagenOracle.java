@@ -20,6 +20,6 @@ public class VistaImagenOracle extends JPanel {
 	
 	protected void paintComponent(Graphics g){
 		super.paintComponent(g);
-		g.drawImage(imagen, (getWidth()/2)-175, (getHeight()/2)-165, 350, 330,this);
+		g.drawImage(imagen, (getWidth()/2)-175, (getHeight()/2)-150, 350, 300,this);
 	}
 }
