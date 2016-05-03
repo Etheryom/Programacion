@@ -1,5 +1,8 @@
 package TemaDBClases;
 
+import TemaDBClases.Controlador.Controlador;
+import TemaDBClases.Vista.Vista;
+
 public class TestDB {
 
 	public static void main(String[] args) {

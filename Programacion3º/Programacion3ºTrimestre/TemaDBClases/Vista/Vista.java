@@ -1,4 +1,4 @@
-package TemaDBClases;
+package TemaDBClases.Vista;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -28,8 +28,6 @@ public class Vista extends JFrame {
 	private JLabel password;
 	private JLabel estado;
 	private JButton aceptar;
-	
-	
 	
 	public Vista(){
 		

@@ -1,4 +1,4 @@
-package TemaDBClases;
+package TemaDBClases.Vista;
 
 import java.awt.Graphics;
 import java.awt.Image;

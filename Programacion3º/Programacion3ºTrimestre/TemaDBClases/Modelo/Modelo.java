@@ -1,4 +1,4 @@
-package TemaDBClases;
+package TemaDBClases.Modelo;
 
 public class Modelo {
 
