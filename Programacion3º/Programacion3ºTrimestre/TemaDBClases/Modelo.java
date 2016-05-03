@@ -5,25 +5,25 @@ public class Modelo {
 	private String usuario;
 	private String password;
 	private String driver;
-	private String estado;
+	private boolean estado;
 	
 	public Modelo(){
 		this("hr","hr");
-		estado = "Desconectado";
+		estado = false;
 		driver = "jdbc:oracle:thin:@localhost:1521:XE";
 	}
 	public Modelo(String usuario,String password){
 		this.usuario = usuario;
 		this.password = password;
 		driver = "jdbc:oracle:thin:@localhost:1521:XE";
-		estado = "Desconectado";
+		estado = false;
 	}
 	
 	
-	public String getEstado() {
+	public boolean getEstado() {
 		return estado;
 	}
-	public void setEstado(String estado) {
+	public void setEstado(boolean estado) {
 		this.estado = estado;
 	}
 	
