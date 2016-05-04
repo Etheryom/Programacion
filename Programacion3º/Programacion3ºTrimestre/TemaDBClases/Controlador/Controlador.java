@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -163,12 +165,21 @@ public class Controlador implements ActionListener{
 		//Instancio el modelo con el ArrayList
 		modeloDepartamentos = new ModeloDepartamentos(departments);
 		
-		//Instancio la vista del Departamento y la arranco
+		//Instancio la vista del Departamento,dejo el que marca el combobox vacio y la arranco
 		vistaConsulta = new VistaConsulta(modeloDepartamentos.getDepartamentos());
+		vistaConsulta.getDepartments().setSelectedIndex(-1);
 		vistaConsulta.arrancar();
 		
-		//cierro la ventana de la vista
-		vista.dispose();
+		
+		//cierro la ventana de la vista al salir de la vista
+		MouseAdapter mouse = new MouseAdapter() {
+			public void mouseExited(MouseEvent e) {
+				vista.dispose();
+			}
+		};
+		vista.addMouseListener(mouse);
+		
+		
 		
 		//Añado evento ActionListener al combobox
 		vistaConsulta.getDepartments().addActionListener(this);

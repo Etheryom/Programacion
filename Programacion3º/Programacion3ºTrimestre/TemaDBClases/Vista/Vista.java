@@ -56,6 +56,8 @@ public class Vista extends JFrame {
 		
 		aceptar = new JButton("Aceptar");
 		
+		
+		//Adicciones
 		panelAceptar.add(aceptar);
 		conectadoDesconectado.add(estado);
 		userPassword.add(nombre);
