@@ -20,6 +20,7 @@ import javax.swing.SwingConstants;
 import Tema16Test.OracleDB;
 import TemaDBClases.Modelo.Modelo;
 import TemaDBClases.Modelo.ModeloDepartamentos;
+import TemaDBClases.Modelo.ModeloTrabajador;
 import TemaDBClases.Vista.Vista;
 import TemaDBClases.Vista.VistaConsulta;
 
@@ -33,6 +34,7 @@ public class Controlador implements ActionListener{
 	private Statement sentencia;
 	private ResultSet resultado;
 	private ArrayList<String> departments;
+	private ArrayList<ModeloTrabajador> trabajadores;
 	
 	
 	
@@ -41,6 +43,9 @@ public class Controlador implements ActionListener{
 			
 		//Instancio ArrayList y lo relleno con los resultados de la consulta
 		departments = new ArrayList();
+		
+		//Instancio ArrayList y lo relleno con los resultados de la consulta
+		trabajadores = new ArrayList();
 		
 		//Asocio evento al boton enviar
 		vista.getAceptar().addActionListener(this);
@@ -58,7 +63,7 @@ public class Controlador implements ActionListener{
 			
 	}
 	
-	public void rellenarNombres(ResultSet resultado) throws SQLException{
+	public void visualizarTrabajadores(ArrayList<ModeloTrabajador> trabajadores) throws SQLException{
 		//Eliminamos (si los hay), los resultado anteriores.
 		vistaConsulta.getNombres().removeAll();
 		
@@ -67,16 +72,16 @@ public class Controlador implements ActionListener{
 		
 		//Contamos filas para las filas del gridlayout
 		int f = 0;
-		
-		while(resultado.next()){
+		//while(resultado.next()){
+		for(int i= 0;i<trabajadores.size();i++){
 
-				label = new JLabel(resultado.getString("first_name"),SwingConstants.CENTER);
+				label = new JLabel(trabajadores.get(i).getNombre(),SwingConstants.CENTER);
 				label.setOpaque(true);
 				if(f%2==0)
 					label.setBackground(new Color(153,255,153));
 				vistaConsulta.getNombres().add(label);
 				
-				label = new JLabel(resultado.getString("last_name"),SwingConstants.CENTER);
+				label = new JLabel(trabajadores.get(i).getApellido(),SwingConstants.CENTER);
 				label.setOpaque(true);
 				if(f%2==0)
 					label.setBackground(new Color(153,255,153));
@@ -147,14 +152,8 @@ public class Controlador implements ActionListener{
         return resultado;
     }
 	
-	public ArrayList<String> rellenarDepartaments(ArrayList <String> departments,ResultSet resultado) throws SQLException{
 	
-    	while(resultado.next()){
-    		departments.add(resultado.getString("DEPARTMENT_NAME"));
-    	}
-		return departments;
-	}
-	
+	//Hago la consulta e instancio el modeloDepartamento con un ArrayList de los distintos departamentos
 	public void ConsultaCombo() throws SQLException{
 		//Una vez realizado, realizo consulta para obtener los departamentos;
 		resultado = consultar("select * from departments");
@@ -188,33 +187,67 @@ public class Controlador implements ActionListener{
 		resultado.close();
 	}
 	
+	//Relleno el combobox de la vista con los distintos departamentos
+	public ArrayList<String> rellenarDepartaments(ArrayList <String> departments,ResultSet resultado) throws SQLException{
+		
+    	while(resultado.next()){
+    		departments.add(resultado.getString("DEPARTMENT_NAME"));
+    	}
+		return departments;
+	}
+	
+	public ResultSet ConsultaTrabajadores(){
+		String d = (String)vistaConsulta.getDepartments().getSelectedItem();
+		resultado = consultar("select first_name,last_name from employees where department_id = (select department_id from departments where department_name = '"+d+"')");
+
+		return resultado;
+	}
+	
+	public ArrayList<ModeloTrabajador> rellenarTrabajadores(ResultSet employees) throws SQLException{
+		//Limpio los trabajadores anteriores si los hay
+		trabajadores.clear();
+		
+		while(employees.next()){
+			trabajadores.add( new ModeloTrabajador(employees.getString("first_name"), employees.getString("last_name")));
+		}
+		return trabajadores;
+	}
+	
+	public String contruirContraseña(char[] caracteres){
+		String password="";
+			for(int i = 0;i<caracteres.length;i++){
+				password+=caracteres[i];
+			}
+		return password;
+	}
+	
 	
 	//<<<----EVENTOS----->>>
-	@SuppressWarnings("deprecation")
 	public void actionPerformed(ActionEvent e) {
 		
 		if(e.getSource() == vista.getAceptar()){
 			//Recojo los campos introducidos por el usuario y los guardo en el modelo
-			modelo = new Modelo(vista.getCampoNombre().getText(),vista.getCampoPassword().getText());
+			modelo = new Modelo(vista.getCampoNombre().getText(),contruirContraseña(vista.getCampoPassword().getPassword()));
 			
 			//Establezco conexion con la BBDD
 			conectar();
 			
-			//consulta para obtener los datos para el combobox
-			try {
-				ConsultaCombo();
-			} catch (SQLException e1) {
-				JOptionPane.showMessageDialog(null, "No se pudo realizar la consulta");
+			if(connection!=null){
+				//consulta para obtener los datos para el combobox
+				try {
+					ConsultaCombo();
+				} catch (SQLException e1) {
+					JOptionPane.showMessageDialog(null, "No se pudo realizar la consulta");
+				}
 			}
 		}
-		
-		if(e.getSource() == vistaConsulta.getDepartments()){
-			String d = (String)vistaConsulta.getDepartments().getSelectedItem();
-			resultado = consultar("select first_name,last_name from employees where department_id = (select department_id from departments where department_name = '"+d+"')");
-			try {
-				rellenarNombres(resultado);
-			} catch (SQLException e1) {
-				JOptionPane.showMessageDialog(null, "No se pudo extraer los nombres del Departamento");
+		if(connection!=null){
+			if(e.getSource() == vistaConsulta.getDepartments()){
+				try {
+					visualizarTrabajadores(rellenarTrabajadores((ConsultaTrabajadores())));
+				} catch (SQLException e1) {
+					JOptionPane.showMessageDialog(null, "No se pudo extraer los nombres del Departamento");
+				}
 			}
 		}
 	}
