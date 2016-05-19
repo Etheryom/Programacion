@@ -27,6 +27,7 @@ public class Controlador implements ActionListener {
 		//Eventos
 		panelPrincipal.getIngresar().addActionListener(this);
 		login.getIngresar().addActionListener(this);
+		panelPrincipal.getSalir().addActionListener(this);
 	}
 
 
@@ -73,9 +74,30 @@ public class Controlador implements ActionListener {
 				
 
 			}
+		}
+		
+		if(e.getSource() == panelPrincipal.getSalir()){
 			
+			
+			int n = JOptionPane.showConfirmDialog(
+		            null,
+		            "Le has dado al boton salir, ¿Seguro que quieres hacerlo?",
+		            "",
+		            JOptionPane.YES_NO_OPTION);
 
-			
+		        if(n == JOptionPane.YES_OPTION){
+					
+		        	//Desactivo todos los botones y activo ingresar
+					panelPrincipal.getIngresar().setEnabled(true);
+					panelPrincipal.getSalir().setEnabled(false);
+					panelPrincipal.getProgramar().setEnabled(false);
+					panelPrincipal.getVisualizar().setEnabled(false);
+					
+					//limpiamos los registros anteriores.
+					login.getCarnetUniversitario().setText("");
+					login.getPassword().setText("");
+		       
+		        }
 		}
 		
 		
