@@ -31,13 +31,30 @@ public class Consultas extends ConexionBaseDeDatos {
 				getUniversitario().setCI(CI);
 				getUniversitario().setNombre(nombre);
 				getUniversitario().setPassword(password);
-				getUniversitario().setMatricula(null);
+				//getUniversitario().setMatricula(null);
 			}
 		} catch (SQLException e1) {
 			JOptionPane.showMessageDialog(null, "Usuario y contraseña incorrecto");
 		}
 		
 		return conectado;
+	}
+	
+	public boolean estaMatriculado(String u_cu){
+		boolean matriculado = false;
+		ResultSet resulset = super.consultar("select m_id from matricula where m_id = '"+u_cu+"'");
+		
+		try {
+			while(resulset.next()){
+				//Si accede a este punto signica que ha habido un resultado y por tanto esta matriculado
+				matriculado  = true;
+	
+			}
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "La consulta sobre la matriculacion no podido ser realizada");
+		}
+		
+		return matriculado;
 	}
 	
 	public Universitario getUniversitario() {

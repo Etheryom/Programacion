@@ -53,8 +53,16 @@ public class Controlador implements ActionListener {
 				
 				//Desaparece panel de login
 				login.setVisible(false);
-				//Mensaje de Bienvenida
-				JOptionPane.showMessageDialog(null, "Bienvenid@ "+modelo.getUniversitario().getNombre());
+				
+				if(modelo.estaMatriculado(modelo.getUniversitario().getCU())){
+					modelo.getUniversitario().setMatricula(modelo.getUniversitario().getCU());
+					JOptionPane.showMessageDialog(null, "Bienvenid@ "+modelo.getUniversitario().getNombre());
+				}
+				else{
+					modelo.getUniversitario().setMatricula(null);
+					JOptionPane.showMessageDialog(null, "Bienvenid@ "+modelo.getUniversitario().getNombre()+". Le recordamos que aun no se ha matriculado. Le "
+							+ "aconsejamos que lo haga lo antes posible.");
+				}
 			}
 		}
 		
