@@ -117,16 +117,14 @@ public class Interface extends JFrame {
 		ok1.addActionListener(tecladoGrafico);
 		}
 		
-		
-		//Configuracion del eventos del boton reiniciar
-		Reiniciar reload = new Reiniciar(pantalla,diccionario);
-		reiniciar.addActionListener(reload);
-		
-		
 		//Timer. El boton comprobar esta asociado con este mismo.
 		timer = new Timer(1000, new GanarPerder());
 		gp = new GanarPerder();
 		comprobar.addActionListener(gp);
+		
+		//Configuracion del eventos del boton reiniciar
+		Reiniciar reload = new Reiniciar(pantalla,diccionario);
+		reiniciar.addActionListener(reload);
 		
 		//Timer.todo click en el frame.
 		Check check = new Check();
