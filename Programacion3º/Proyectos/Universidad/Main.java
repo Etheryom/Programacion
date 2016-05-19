@@ -3,6 +3,7 @@ package Universidad;
 import Universidad.Controlador.Controlador;
 import Universidad.Vista.Login;
 import Universidad.Vista.PanelPrincipal;
+import Universidad.Vista.Programacion;
 
 public class Main {
 
@@ -14,6 +15,9 @@ public class Main {
 		principal.arrancar();
 		
 		Controlador controlador = new Controlador(principal,login);
+		
+		Programacion programacion = new Programacion(false);
+		programacion.arrancar();
 
 	}
 

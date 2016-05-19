@@ -2,6 +2,7 @@ package Universidad.Modelo;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
@@ -51,10 +52,29 @@ public class Consultas extends ConexionBaseDeDatos {
 	
 			}
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "La consulta sobre la matriculacion no podido ser realizada");
+			JOptionPane.showMessageDialog(null, "La consulta sobre la matriculacion no ha podido ser realizada");
 		}
 		
 		return matriculado;
+	}
+	
+	public ResultSet asignaturasExistentes(){
+		ResultSet resulset = super.consultar("select * from materia");
+		return resulset;
+	}
+	
+	public ArrayList<String> rellenarAsignaturas(ResultSet resulset){
+		ArrayList<String> array  = new ArrayList();
+		
+		try {
+			while(resulset.next()){
+				//array.
+			}
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "La consulta sobre las asignaturas no  hapodido ser realizada");
+		}
+		
+		return array;
 	}
 	
 	public Universitario getUniversitario() {
