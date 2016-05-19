@@ -50,20 +50,72 @@ public class Controlador implements ActionListener{
 		//Asocio evento al boton enviar
 		vista.getAceptar().addActionListener(this);
 		
-		
 	}
 	
 	
-	//<<<----ALTERACION VISTA----->>>
+//<<<----METODOS DE LA CLASE----->>>
+	
+	//Retorna conectado o desconectado en funcion de si esta conectado o no.
 	public String mensajeConectado(){
 		if(modelo.getEstado())
 			return "Conectado";
 		else
-			return "Desconectado";
-			
+			return "Desconectado";	
 	}
 	
-	public void visualizarTrabajadores(ArrayList<ModeloTrabajador> trabajadores) throws SQLException{
+	public String contruirContraseña(char[] caracteres){
+		String password="";
+			for(int i = 0;i<caracteres.length;i++){
+				password+=caracteres[i];
+			}
+		return password;
+	}
+	
+//<<<---METODOS PARA COMBOBOX!!--->>>
+	
+	//Hago la consulta e instancio el modeloDepartamento con un ArrayList de los distintos departamentos
+	public void ConsultaCombo() throws SQLException{
+		//Una vez realizado, realizo consulta para obtener los departamentos;
+		resultado = consultar("select * from departments");
+		
+		//relleno el ArrayList
+		departments = rellenarDepartaments();
+	
+	}
+	
+	//Relleno el combobox de la vista con los distintos departamentos
+	public ArrayList<String> rellenarDepartaments() throws SQLException{
+		
+    	while(resultado.next()){
+    		departments.add(resultado.getString("DEPARTMENT_NAME"));
+    	}
+		return departments;
+	}
+	
+	
+// <<<---METODOS PARA TRABAJADORES--->>>>
+	
+	//--1--Realizo consulta
+	public ResultSet ConsultaTrabajadores(){
+		String d = (String)vistaConsulta.getDepartments().getSelectedItem();
+		resultado = consultar("select first_name,last_name from employees where department_id = (select department_id from departments where department_name = '"+d+"')");
+
+		return resultado;
+	}
+	
+	//--2--Relleno ArrayList con todos los departamentos obtenidos en la busqueda
+	public ArrayList<ModeloTrabajador> rellenarTrabajadores() throws SQLException{
+		//Limpio los trabajadores anteriores si los hay
+		trabajadores.clear();
+		
+		while(resultado.next()){
+			trabajadores.add( new ModeloTrabajador(resultado.getString("first_name"), resultado.getString("last_name")));
+		}
+		return trabajadores;
+	}
+	
+	//--3-- Modifico la vista a partir del ArrayList con todos los trabajadores
+	public void visualizarTrabajadores() throws SQLException{
 		//Eliminamos (si los hay), los resultado anteriores.
 		vistaConsulta.getNombres().removeAll();
 		
@@ -77,8 +129,10 @@ public class Controlador implements ActionListener{
 
 				label = new JLabel(trabajadores.get(i).getNombre(),SwingConstants.CENTER);
 				label.setOpaque(true);
+				
 				if(f%2==0)
 					label.setBackground(new Color(153,255,153));
+				
 				vistaConsulta.getNombres().add(label);
 				
 				label = new JLabel(trabajadores.get(i).getApellido(),SwingConstants.CENTER);
@@ -97,14 +151,7 @@ public class Controlador implements ActionListener{
 	}
 	
 	//<<<----METODOS BBDD----->>>
-	public Connection getConnection(){
-		return connection;
-	}
-	
-	public void setConnection(Connection c){
-		connection = c ;
-	}
-	
+
 	public Controlador conectar() {
 		
 	    try {
@@ -129,9 +176,9 @@ public class Controlador implements ActionListener{
 	public boolean ejecutar(String sql) {
         try {
             Statement sentencia;
-            sentencia = getConnection().createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+            sentencia = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
             sentencia.executeUpdate(sql);
-            getConnection().commit();
+            connection.commit();
             sentencia.close();
         } catch (SQLException e) {
             System.out.println("Error en la ejecucion");
@@ -143,7 +190,7 @@ public class Controlador implements ActionListener{
         ResultSet resultado = null;
         try {
             Statement sentencia;
-            sentencia = getConnection().createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+            sentencia = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
             resultado = sentencia.executeQuery(sql);
         } catch (SQLException e) {
             System.out.println("Error en la consulta");
@@ -152,75 +199,13 @@ public class Controlador implements ActionListener{
         return resultado;
     }
 	
-	
-	//Hago la consulta e instancio el modeloDepartamento con un ArrayList de los distintos departamentos
-	public void ConsultaCombo() throws SQLException{
-		//Una vez realizado, realizo consulta para obtener los departamentos;
-		resultado = consultar("select * from departments");
-		
-		//relleno el ArrayList
-		departments = rellenarDepartaments(departments,resultado);
-		
-		//Instancio el modelo con el ArrayList
-		modeloDepartamentos = new ModeloDepartamentos(departments);
-		
-		//Instancio la vista del Departamento,dejo el que marca el combobox vacio y la arranco
-		vistaConsulta = new VistaConsulta(modeloDepartamentos.getDepartamentos());
-		vistaConsulta.getDepartments().setSelectedIndex(-1);
-		vistaConsulta.arrancar();
-		
-		
-		//cierro la ventana de la vista al salir de la vista
-		MouseAdapter mouse = new MouseAdapter() {
-			public void mouseExited(MouseEvent e) {
-				vista.dispose();
-			}
-		};
-		vista.addMouseListener(mouse);
-		
-		
-		
-		//Añado evento ActionListener al combobox
-		vistaConsulta.getDepartments().addActionListener(this);
-		
-		//Cierro el resultado
-		resultado.close();
+	public Connection getConnection(){
+		return connection;
 	}
 	
-	//Relleno el combobox de la vista con los distintos departamentos
-	public ArrayList<String> rellenarDepartaments(ArrayList <String> departments,ResultSet resultado) throws SQLException{
-		
-    	while(resultado.next()){
-    		departments.add(resultado.getString("DEPARTMENT_NAME"));
-    	}
-		return departments;
+	public void setConnection(Connection c){
+		connection = c ;
 	}
-	
-	public ResultSet ConsultaTrabajadores(){
-		String d = (String)vistaConsulta.getDepartments().getSelectedItem();
-		resultado = consultar("select first_name,last_name from employees where department_id = (select department_id from departments where department_name = '"+d+"')");
-
-		return resultado;
-	}
-	
-	public ArrayList<ModeloTrabajador> rellenarTrabajadores(ResultSet employees) throws SQLException{
-		//Limpio los trabajadores anteriores si los hay
-		trabajadores.clear();
-		
-		while(employees.next()){
-			trabajadores.add( new ModeloTrabajador(employees.getString("first_name"), employees.getString("last_name")));
-		}
-		return trabajadores;
-	}
-	
-	public String contruirContraseña(char[] caracteres){
-		String password="";
-			for(int i = 0;i<caracteres.length;i++){
-				password+=caracteres[i];
-			}
-		return password;
-	}
-	
 	
 	//<<<----EVENTOS----->>>
 	public void actionPerformed(ActionEvent e) {
@@ -236,6 +221,31 @@ public class Controlador implements ActionListener{
 				//consulta para obtener los datos para el combobox
 				try {
 					ConsultaCombo();
+					
+					//Instancio el modelo con el ArrayList
+					modeloDepartamentos = new ModeloDepartamentos(departments);
+					
+					//Instancio la vista del Departamento,dejo el que marca el combobox vacio y la arranco
+					vistaConsulta = new VistaConsulta(modeloDepartamentos.getDepartamentos());
+					vistaConsulta.getDepartments().setSelectedIndex(-1);
+					vistaConsulta.arrancar();
+					
+					
+					//cierro la ventana de la vista al salir de la vista
+					MouseAdapter mouse = new MouseAdapter() {
+						public void mouseExited(MouseEvent e) {
+							vista.dispose();
+						}
+					};
+					vista.addMouseListener(mouse);
+					
+					
+					
+					//Añado evento ActionListener al combobox
+					vistaConsulta.getDepartments().addActionListener(this);
+					
+					//Cierro el resultado
+					resultado.close();
 				} catch (SQLException e1) {
 					JOptionPane.showMessageDialog(null, "No se pudo realizar la consulta");
 				}
@@ -243,8 +253,11 @@ public class Controlador implements ActionListener{
 		}
 		if(connection!=null){
 			if(e.getSource() == vistaConsulta.getDepartments()){
+				
 				try {
-					visualizarTrabajadores(rellenarTrabajadores((ConsultaTrabajadores())));
+					ConsultaTrabajadores();
+					rellenarTrabajadores();
+					visualizarTrabajadores();
 				} catch (SQLException e1) {
 					JOptionPane.showMessageDialog(null, "No se pudo extraer los nombres del Departamento");
 				}
