@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import Universidad.Modelo.Informacion;
+import Universidad.Modelo.Consultas;
 import Universidad.Modelo.Universitario;
 import Universidad.Vista.Login;
 import Universidad.Vista.PanelPrincipal;
@@ -16,54 +16,33 @@ public class Controlador implements ActionListener {
 	
 	private PanelPrincipal panelPrincipal;
 	private Login login;
-	private Informacion modelo;
+	private Consultas modelo;
 	
 	public Controlador(PanelPrincipal panelPrincipal,Login login){
 		this.panelPrincipal = panelPrincipal;
 		this.login = login;
-		modelo = new Informacion();
+		modelo = new Consultas();
 		
 		
 		//Eventos
 		panelPrincipal.getIngresar().addActionListener(this);
 		login.getIngresar().addActionListener(this);
 		panelPrincipal.getSalir().addActionListener(this);
+		panelPrincipal.getProgramar().addActionListener(this);
+		panelPrincipal.getVisualizar().addActionListener(this);
 	}
 
 
 	public void actionPerformed(ActionEvent e) {
-		
+
 		if(e.getSource() == panelPrincipal.getIngresar()){
 			login.arrancar();
 		}
 		
 		if(e.getSource() == login.getIngresar()){
-			boolean conectado = false;
-			ResultSet resulset = modelo.consultar("select * from universitario where u_cu = '"+login.getCarnetUniversitario().getText()+"' AND u_password = '"+construirContraseña(login.getPassword().getPassword())+"'");
-			try {
-				while(resulset.next()){
-					conectado = true;
-					
-					String CU = resulset.getString("U_CU");
-					String CI = resulset.getString("U_CI");
-					String nombre = resulset.getString("U_NOMBRE");
-					String password = resulset.getString("U_PASSWORD");
-					
-					modelo.getUniversitario().setCU(CU);
-					modelo.getUniversitario().setCI(CI);
-					modelo.getUniversitario().setNombre(nombre);
-					modelo.getUniversitario().setPassword(password);
-					modelo.getUniversitario().setMatricula(null);
-					
-					//Desaparece panel de login
-					login.setVisible(false);
-					//Mensaje de Bienvenida
-					JOptionPane.showMessageDialog(null, "Bienvenid@ "+modelo.getUniversitario().getNombre());
-				}
-			} catch (SQLException e1) {
-				JOptionPane.showMessageDialog(null, "Usuario y contraseña incorrecto");
-			}
-			if(!conectado)
+			
+			
+			if(!modelo.login(login.getCarnetUniversitario().getText(), construirContraseña(login.getPassword().getPassword())))
 				JOptionPane.showMessageDialog(null, "Usuario y contraseña incorrecto");
 			else{
 				//Desactivo ingresar y activo los demas
@@ -72,13 +51,15 @@ public class Controlador implements ActionListener {
 				panelPrincipal.getProgramar().setEnabled(true);
 				panelPrincipal.getVisualizar().setEnabled(true);
 				
-
+				//Desaparece panel de login
+				login.setVisible(false);
+				//Mensaje de Bienvenida
+				JOptionPane.showMessageDialog(null, "Bienvenid@ "+modelo.getUniversitario().getNombre());
 			}
 		}
 		
 		if(e.getSource() == panelPrincipal.getSalir()){
-			
-			
+
 			int n = JOptionPane.showConfirmDialog(
 		            null,
 		            "Le has dado al boton salir, ¿Seguro que quieres hacerlo?",
@@ -98,8 +79,15 @@ public class Controlador implements ActionListener {
 					login.getPassword().setText("");
 		       
 		        }
+			
 		}
 		
+		if(e.getSource() == panelPrincipal.getProgramar()){
+			System.out.println("programar");
+		}
+		if(e.getSource() == panelPrincipal.getVisualizar()){
+			System.out.println("visualizar");
+		}
 		
 		
 	}

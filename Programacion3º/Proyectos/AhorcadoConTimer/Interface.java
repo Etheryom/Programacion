@@ -64,7 +64,7 @@ public class Interface extends JFrame {
 		//Defino el frame como un BorderLayout
 		setLayout(new BorderLayout());
 		
-		//Crecion de Paneles -- NOTA: Informacion contiene a errores y mascara
+		//Crecion de Paneles -- NOTA: Consultas contiene a errores y mascara
 		JPanel informacion = new JPanel(new GridLayout(2, 1));
 		JPanel errores = new JPanel(new GridLayout(2, 1));
 		JPanel mascara = new JPanel(new FlowLayout(1));
