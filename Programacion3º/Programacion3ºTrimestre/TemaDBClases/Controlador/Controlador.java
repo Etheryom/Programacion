@@ -150,7 +150,7 @@ public class Controlador implements ActionListener{
 		vistaConsulta.paintAll(vistaConsulta.getGraphics());
 	}
 	
-	//<<<----METODOS BBDD----->>>
+//<<<----METODOS BBDD----->>>
 
 	public Controlador conectar() {
 		
@@ -207,7 +207,7 @@ public class Controlador implements ActionListener{
 		connection = c ;
 	}
 	
-	//<<<----EVENTOS----->>>
+//<<<----EVENTOS----->>>
 	public void actionPerformed(ActionEvent e) {
 		
 		if(e.getSource() == vista.getAceptar()){
