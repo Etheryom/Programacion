@@ -51,8 +51,18 @@ public class Controlador implements ActionListener {
 				//Desactivo ingresar y activo los demas
 				panelPrincipal.getIngresar().setEnabled(false);
 				panelPrincipal.getSalir().setEnabled(true);
-				panelPrincipal.getProgramar().setEnabled(true);
-				panelPrincipal.getVisualizar().setEnabled(true);
+				
+				
+				if(modelo.estaMatriculado(modelo.getUniversitario().getCU()))
+					panelPrincipal.getProgramar().setEnabled(false);
+				else
+					panelPrincipal.getProgramar().setEnabled(true);
+				
+				if(modelo.estaMatriculado(modelo.getUniversitario().getCU()))
+					panelPrincipal.getVisualizar().setEnabled(true);
+				else
+					panelPrincipal.getVisualizar().setEnabled(false);
+				
 				
 				//Desaparece panel de login
 				login.setVisible(false);
@@ -94,8 +104,12 @@ public class Controlador implements ActionListener {
 		}
 		
 		if(e.getSource() == panelPrincipal.getProgramar()){
-
+			programacion.getJl_cuci().setText("C.U.: "+modelo.getUniversitario().getCU()+"          C.I.: "+modelo.getUniversitario().getCI());
+			programacion.getJl_NombreCompleto().setText("Nombre Completo: "+modelo.getUniversitario().getNombre());
+			programacion.getJl_NumeroMatricula().setText("IDº Matricula: "+modelo.getUniversitario().getMatricula());
 			programacion.arrancar();
+			
+			
 		}
 		if(e.getSource() == panelPrincipal.getVisualizar()){
 			System.out.println("visualizar");

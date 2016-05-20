@@ -43,7 +43,7 @@ public class Programacion extends JFrame{
 		asignaturas = implementarAsignaturas(asigna);
 		
 		jl_cuci = new JLabel("C.U.:              C.I.: ");
-		jl_NombreCompleto = new JLabel("Nombre: ");
+		jl_NombreCompleto = new JLabel("Nombre Completo: ");
 		jl_Fecha = new JLabel("Fecha: ");
 		jl_NumeroMatricula  = new JLabel("IDº Matricula:");
 		
@@ -96,6 +96,79 @@ public class Programacion extends JFrame{
 			asignaturas.add(new VistaAsignaturas(asign.get(i)).getPanel());
 		}
 		return asignaturas;
+	}
+	
+//<<<---GETTERS AND SETTERS--->>>
+	public JPanel getInformacion_Universitario() {
+		return informacion_Universitario;
+	}
+
+	public void setInformacion_Universitario(JPanel informacion_Universitario) {
+		this.informacion_Universitario = informacion_Universitario;
+	}
+
+	public JPanel getAsignaturas() {
+		return asignaturas;
+	}
+
+	public void setAsignaturas(JPanel asignaturas) {
+		this.asignaturas = asignaturas;
+	}
+
+	public JPanel getUniversidad() {
+		return universidad;
+	}
+
+	public void setUniversidad(JPanel universidad) {
+		this.universidad = universidad;
+	}
+
+	public JPanel getDatos() {
+		return datos;
+	}
+
+	public void setDatos(JPanel datos) {
+		this.datos = datos;
+	}
+
+	public JLabel getJl_cuci() {
+		return jl_cuci;
+	}
+
+	public void setJl_cuci(JLabel jl_cuci) {
+		this.jl_cuci = jl_cuci;
+	}
+
+	public JLabel getJl_NombreCompleto() {
+		return jl_NombreCompleto;
+	}
+
+	public void setJl_NombreCompleto(JLabel jl_NombreCompleto) {
+		this.jl_NombreCompleto = jl_NombreCompleto;
+	}
+
+	public JLabel getJl_Fecha() {
+		return jl_Fecha;
+	}
+
+	public void setJl_Fecha(JLabel jl_Fecha) {
+		this.jl_Fecha = jl_Fecha;
+	}
+
+	public JLabel getJl_NumeroMatricula() {
+		return jl_NumeroMatricula;
+	}
+
+	public void setJl_NumeroMatricula(JLabel jl_NumeroMatricula) {
+		this.jl_NumeroMatricula = jl_NumeroMatricula;
+	}
+
+	public ArrayList<Asignaturas> getAsigna() {
+		return asigna;
+	}
+
+	public void setAsigna(ArrayList<Asignaturas> asigna) {
+		this.asigna = asigna;
 	}
 	
 }
