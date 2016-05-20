@@ -16,9 +16,6 @@ public class Main {
 		
 		Controlador controlador = new Controlador(principal,login);
 		
-		Programacion programacion = new Programacion(false);
-		programacion.arrancar();
-
 	}
 
 }

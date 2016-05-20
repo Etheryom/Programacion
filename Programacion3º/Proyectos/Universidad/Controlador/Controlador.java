@@ -11,17 +11,20 @@ import Universidad.Modelo.Consultas;
 import Universidad.Modelo.Universitario;
 import Universidad.Vista.Login;
 import Universidad.Vista.PanelPrincipal;
+import Universidad.Vista.Programacion;
 
 public class Controlador implements ActionListener {
 	
 	private PanelPrincipal panelPrincipal;
 	private Login login;
 	private Consultas modelo;
+	private Programacion programacion;
 	
 	public Controlador(PanelPrincipal panelPrincipal,Login login){
 		this.panelPrincipal = panelPrincipal;
 		this.login = login;
 		modelo = new Consultas();
+		programacion= new Programacion(modelo.rellenarAsignaturas(modelo.asignaturasExistentes()));
 		
 		
 		//Eventos
@@ -91,7 +94,8 @@ public class Controlador implements ActionListener {
 		}
 		
 		if(e.getSource() == panelPrincipal.getProgramar()){
-			System.out.println("programar");
+
+			programacion.arrancar();
 		}
 		if(e.getSource() == panelPrincipal.getVisualizar()){
 			System.out.println("visualizar");

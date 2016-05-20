@@ -32,7 +32,6 @@ public class Consultas extends ConexionBaseDeDatos {
 				getUniversitario().setCI(CI);
 				getUniversitario().setNombre(nombre);
 				getUniversitario().setPassword(password);
-				//getUniversitario().setMatricula(null);
 			}
 		} catch (SQLException e1) {
 			JOptionPane.showMessageDialog(null, "Usuario y contraseña incorrecto");
@@ -63,12 +62,12 @@ public class Consultas extends ConexionBaseDeDatos {
 		return resulset;
 	}
 	
-	public ArrayList<String> rellenarAsignaturas(ResultSet resulset){
-		ArrayList<String> array  = new ArrayList();
+	public ArrayList<Asignaturas> rellenarAsignaturas(ResultSet resulset){
+		ArrayList<Asignaturas> array  = new ArrayList();
 		
 		try {
 			while(resulset.next()){
-				//array.
+				array.add(new Asignaturas(resulset.getString("M_SIGLA"),resulset.getString("M_NOMBRE"),resulset.getInt("M_CURSO"),resulset.getString("M_TIPO")));
 			}
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "La consulta sobre las asignaturas no  hapodido ser realizada");
