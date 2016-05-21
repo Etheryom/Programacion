@@ -1,8 +1,10 @@
 package Universidad.Vista;
 
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -26,8 +28,9 @@ public class VistaAsignaturas extends JFrame {
 		panel = new JPanel(new GridLayout(1,6));
 		
 		check = new JCheckBox();
-		sigla = new JLabel(asignatura.getSigla(),SwingConstants.CENTER);
-		nombre = new JLabel(asignatura.getNombre(),SwingConstants.CENTER);
+		check.setOpaque(false);
+		sigla = new JLabel(asignatura.getSigla());
+		nombre = new JLabel(asignatura.getNombre());
 		curso = new JLabel(Integer.toString(asignatura.getCurso()),SwingConstants.CENTER);
 		tipo = new JLabel(asignatura.getTipo());
 		combo = rellenarCombo();
@@ -50,6 +53,10 @@ public class VistaAsignaturas extends JFrame {
 		return combo;
 	}
 //<<<---GETTERS AND SETTERS--->>>
+	public VistaAsignaturas getVistaAsignaturas(){
+		return this;
+	}
+	
 	public JCheckBox getCheck() {
 		return check;
 	}
