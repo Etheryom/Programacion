@@ -134,7 +134,7 @@ public class Controlador implements ActionListener {
 			
 			int n = JOptionPane.showConfirmDialog(
 		            null,
-		            "Estas seguro de querer finalizar la matriculacion?. Recuerda que no podrá realizarla de nuevo.",
+		            "Esta seguro de querer finalizar la matriculacion?. Recuerde que no podrá realizarla de nuevo.",
 		            "",
 		            JOptionPane.YES_NO_OPTION);
 

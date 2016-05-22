@@ -107,9 +107,17 @@ INSERT INTO universitario VALUES ('35-2255', '1234567', 'Susana Horia Legusta');
 
 
 
-
+--CONSULTAS Y EJECUCIONES DE INTERES
 insert into matricula values('35-2255','19/05','19/05/16');
 
 INSERT INTO programacion VALUES('35-1111',null,'Cien','2','SX411','opcional',5)
 INSERT INTO programacion VALUES('35-1111',null,'Cien','2','SX-411','Opcional',5)
 delete from programacion where p_matricula ='35-1111'
+
+
+select p_matricula,p_materia,p_grupo,p_sigla,p_tipo,p_curso from programacion where p_matricula ='35-7878'
+delete from programacion where p_matricula='35-7878'
+select * from matricula
+INSERT INTO matricula VALUES('35-7878','22/5','22/5/2016')
+delete from matricula where m_id='35-7878'
+select * from universitario
