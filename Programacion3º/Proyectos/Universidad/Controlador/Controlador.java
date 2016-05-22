@@ -158,7 +158,7 @@ public class Controlador implements ActionListener {
 			
 		}
 		if(e.getSource() == programacion.getCancelar()){
-			System.out.println("CANCELAAA");
+			programacion.dispose();
 		}
 		
 		
