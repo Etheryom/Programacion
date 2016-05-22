@@ -76,6 +76,12 @@ public class Consultas extends ConexionBaseDeDatos {
 		return array;
 	}
 	
+	public void matricularAsignatura(String p_matricula,String p_materia,String p_grupo,String p_sigla,String p_tipo,int p_curso){
+		super.ejecutar("INSERT INTO programacion VALUES('"+p_matricula+"',null,'"+p_materia+"','"+p_grupo+"','"+p_sigla+"','"+p_tipo+"',"+p_curso+")");
+	}
+	
+	
+	
 	public Universitario getUniversitario() {
 		return universitario;
 	}

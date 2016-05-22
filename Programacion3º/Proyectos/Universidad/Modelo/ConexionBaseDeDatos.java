@@ -57,7 +57,7 @@ public class ConexionBaseDeDatos {
 		public boolean ejecutar(String sql) {
 	        try {
 	            Statement sentencia;
-	            sentencia = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+	            sentencia = connection.createStatement();
 	            sentencia.executeUpdate(sql);
 	            connection.commit();
 	            sentencia.close();

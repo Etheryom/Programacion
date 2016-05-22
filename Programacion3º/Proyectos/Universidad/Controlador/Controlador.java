@@ -140,10 +140,16 @@ public class Controlador implements ActionListener {
 				}
 			}
 			
+			//Matriculo las seleccionadas y las inserto en la tabla programacion
 			for(int i = 0;i<programacion.getAsigna().size();i++){
 				if(programacion.getAsigna().get(i).isSeleccionada())
-					System.out.println(programacion.getAsigna().get(i).getSigla()+"-"+programacion.getAsigna().get(i).getNombre()+" - "+programacion.getAsigna().get(i).getCurso()+" - "+programacion.getAsigna().get(i).getTipo()+" - "+programacion.getAsigna().get(i).getGrupo());
+					modelo.matricularAsignatura(modelo.getUniversitario().getCU(), programacion.getAsigna().get(i).getNombre(), programacion.getAsigna().get(i).getGrupo(), programacion.getAsigna().get(i).getSigla(), programacion.getAsigna().get(i).getTipo(), programacion.getAsigna().get(i).getCurso());	
 			}
+			
+			//Creo ficha de matricula para el usuario
+			
+			
+			
 			
 			//System.out.println( ((AbstractButton) ((Container) programacion.getAsignaturas().getComponent(0)).getComponent(0)).isSelected());
 			//System.out.println( ((JComboBox) ((Container) programacion.getAsignaturas().getComponent(0)).getComponent(5)).getSelectedItem());
