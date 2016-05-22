@@ -80,6 +80,10 @@ public class Consultas extends ConexionBaseDeDatos {
 		super.ejecutar("INSERT INTO programacion VALUES('"+p_matricula+"',null,'"+p_materia+"','"+p_grupo+"','"+p_sigla+"','"+p_tipo+"',"+p_curso+")");
 	}
 	
+	public void registrarMatricula(String m_id,String m_gestion,String m_fecha ){
+		super.ejecutar("INSERT INTO matricula VALUES('"+m_id+"','"+m_gestion+"','"+m_fecha+"')");
+	}
+	
 	
 	
 	public Universitario getUniversitario() {
@@ -88,6 +92,22 @@ public class Consultas extends ConexionBaseDeDatos {
 
 	public void setUniversitario(Universitario universitario) {
 		this.universitario = universitario;
+	}
+	
+	public ArrayList<Asignaturas> asignaturasMatriculadas(){
+		ArrayList<Asignaturas> matriculadas = new ArrayList<>();
+		
+		ResultSet resulset = super.consultar("select p_matricula,p_materia,p_grupo,p_sigla,p_tipo,p_curso from programacion where p_matricula ='"+universitario.getCU()+"'");
+		
+		try {
+			while(resulset.next()){
+				matriculadas.add(new Asignaturas(resulset.getString("p_sigla"),resulset.getString("p_materia"),resulset.getInt("p_curso"),resulset.getString("p_tipo"),resulset.getString("p_grupo")));
+			}
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "La consulta sobre las asignaturas no  hapodido ser realizada");
+		}
+	
+		return matriculadas;
 	}
 
 }

@@ -17,6 +17,14 @@ public class Asignaturas {
 		grupo = "";
 		seleccionada = false;
 	}
+	public Asignaturas(String sigla,String nombre,int curso,String tipo,String grupo){
+		this.sigla = sigla;
+		this.nombre = nombre;
+		this.curso = curso;
+		this.tipo = tipo;
+		this.grupo = grupo;
+		seleccionada = true;
+	}
 	
 	///<<<---GETTERS AND SETTERS--->>>
 	public String getSigla() {

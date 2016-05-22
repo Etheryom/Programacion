@@ -22,10 +22,14 @@ public class VistaAsignaturas extends JFrame {
 	private JLabel nombre;
 	private JLabel curso;
 	private JLabel tipo;
+	private JLabel grupo;
+	private JLabel vacio;
 	private JComboBox combo;
 	
-	public VistaAsignaturas(Asignaturas asignatura){
+	public VistaAsignaturas(Asignaturas asignatura,boolean programacion){
+		
 		panel = new JPanel(new GridLayout(1,6));
+
 		
 		check = new JCheckBox();
 		check.setOpaque(false);
@@ -33,14 +37,25 @@ public class VistaAsignaturas extends JFrame {
 		nombre = new JLabel(asignatura.getNombre());
 		curso = new JLabel(Integer.toString(asignatura.getCurso()),SwingConstants.CENTER);
 		tipo = new JLabel(asignatura.getTipo());
-		combo = rellenarCombo();
+		grupo = new JLabel(asignatura.getGrupo());
+		vacio = new JLabel("");
 		
-		panel.add(check);
+		if(programacion){
+			combo = rellenarCombo();
+			panel.add(check);
+		}
+		else
+			panel.add(vacio);
+		
 		panel.add(sigla);
 		panel.add(nombre);
 		panel.add(curso);
 		panel.add(tipo);
-		panel.add(combo);
+		
+		if(programacion)
+			panel.add(combo);
+		else
+			panel.add(grupo);
 		
 		add(panel);
 	}

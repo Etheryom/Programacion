@@ -33,6 +33,7 @@ public class Programacion extends JFrame{
 	
 	private final JLabel JL_UNIVERSIDAD = new JLabel("UNIVERSIDAD 1ºDAW",SwingConstants.CENTER);
 	private final JLabel JL_SERVICIOS = new JLabel("Servicio de Matriculacion",SwingConstants.CENTER);
+	private final JLabel JL_IMPRESION = new JLabel("Servicio de Impresion",SwingConstants.CENTER);
 	
 	private JLabel jl_cuci;
 	private JLabel jl_NombreCompleto;
@@ -51,13 +52,20 @@ public class Programacion extends JFrame{
 	
 	private ArrayList<Asignaturas> asigna;
 	
-	public Programacion(ArrayList<Asignaturas> asigna){
+	private boolean programacion;
+	
+	public Programacion(ArrayList<Asignaturas> asigna,boolean programacion){
+		this.programacion = programacion;
 		this.asigna = asigna;
 		
 		informacion_Universitario = new JPanel(new BorderLayout());
 		universidad = new JPanel(new GridLayout(2,1,0,5));
 		datos = new JPanel(new GridLayout(1,4));
-		nombreColumnas = new JPanel(new GridLayout(1,6));
+		if(programacion)
+			nombreColumnas = new JPanel(new GridLayout(1,6));
+		else
+			nombreColumnas = new JPanel(new GridLayout(1,5));
+		
 		ColumnasYAsignatura = new JPanel(new BorderLayout());
 		MateriasYBotones = new JPanel(new BorderLayout());
 		botones = new JPanel(new java.awt.FlowLayout(0, 15, 0));
@@ -83,6 +91,7 @@ public class Programacion extends JFrame{
 		JL_UNIVERSIDAD.setFont(new Font("SansSerif", Font.BOLD, 20));
 		JL_UNIVERSIDAD.setForeground(Color.white);
 		JL_SERVICIOS.setForeground(Color.WHITE);
+		JL_IMPRESION.setForeground(Color.WHITE);
 		
 		
 		//editamos botones
@@ -116,15 +125,21 @@ public class Programacion extends JFrame{
 		nombreColumnas.add(tipo);
 		nombreColumnas.add(grupo);
 		universidad.add(JL_UNIVERSIDAD);
-		universidad.add(JL_SERVICIOS);
+		
+		if(programacion)
+			universidad.add(JL_SERVICIOS);
+		else
+			universidad.add(JL_IMPRESION);
 	
 		datos.add(jl_cuci);
 		datos.add(jl_NombreCompleto);
 		datos.add(jl_Fecha);
 		datos.add(jl_NumeroMatricula);
 		
+		if(programacion){
 		botones.add(programar);
 		botones.add(cancelar);
+		}
 		
 		informacion_Universitario.add(universidad,BorderLayout.NORTH);
 		informacion_Universitario.add(datos,BorderLayout.CENTER);
@@ -132,8 +147,12 @@ public class Programacion extends JFrame{
 		ColumnasYAsignatura.add(nombreColumnas,BorderLayout.NORTH);
 		ColumnasYAsignatura.add(asignaturas,BorderLayout.CENTER);
 		
+		
 		MateriasYBotones.add(ColumnasYAsignatura,BorderLayout.CENTER);
-		MateriasYBotones.add(botones,BorderLayout.SOUTH);
+		
+		if(programacion)
+			MateriasYBotones.add(botones,BorderLayout.SOUTH);
+		
 		
 		add(informacion_Universitario,BorderLayout.NORTH);
 		add(MateriasYBotones,BorderLayout.CENTER);
@@ -152,8 +171,15 @@ public class Programacion extends JFrame{
 	public JPanel implementarAsignaturas(ArrayList<Asignaturas> asign){
 		JPanel asignaturas = new JPanel(new GridLayout(asign.size(),1));
 		
-		for(int i = 0;i<asign.size();i++){	
-			asignaturas.add(new VistaAsignaturas(asign.get(i)).getPanel());
+		if(programacion){
+			for(int i = 0;i<asign.size();i++){	
+				asignaturas.add(new VistaAsignaturas(asign.get(i),true).getPanel());
+			}
+		}
+		else{
+			for(int i = 0;i<asign.size();i++){	
+				asignaturas.add(new VistaAsignaturas(asign.get(i),false).getPanel());
+			}
 		}
 		return asignaturas;
 	}
